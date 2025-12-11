@@ -16,6 +16,10 @@ import StaffingPage from "./pages/staffing/StaffingPage";
 import AcademicPage from "./pages/academics/AcademicPage";
 import WorkloadCalculator from "./pages/workload/WorkloadCalculator";
 import WorkloadManagementPage from "./pages/workload/WorkloadManagement";
+import StudentRegistration from "./pages/student-registration/StudentRegistration";
+import LegalIssuesPage from "./pages/legalIssues/LegalIssuesPage";
+import AssetManagementPage from "./pages/assets/AssetManagement";
+import NocReviewPage from "./pages/noc/NocReviewPage";
 
 
 function App() {
@@ -40,7 +44,7 @@ function App() {
         <Route
           path="/institute/register"
           element={
-            <ProtectedRoute allowedRoles={["ADMIN", "INSTITUTE", "JD", "DIRECTOR", "SECRETARY"] as Role[]}>
+            <ProtectedRoute allowedRoles={["ADMIN", "INSTITUTE", "DIRECTOR", "SECRETARY"] as Role[]}>
               <InstituteRegister />
             </ProtectedRoute>
           }
@@ -48,7 +52,7 @@ function App() {
         <Route
           path="/institute/profile"
           element={
-            <ProtectedRoute allowedRoles={["ADMIN", "INSTITUTE", "JD", "DIRECTOR", "SECRETARY"] as Role[]}>
+            <ProtectedRoute allowedRoles={["ADMIN", "INSTITUTE", "DIRECTOR", "SECRETARY"] as Role[]}>
               <InstituteProfile />
             </ProtectedRoute>
           }
@@ -56,7 +60,7 @@ function App() {
         <Route
           path="/verification/application"
           element={
-            <ProtectedRoute allowedRoles={["ADMIN", "INSTITUTE", "JD", "DIRECTOR", "SECRETARY"] as Role[]}>
+            <ProtectedRoute allowedRoles={["ADMIN", "JD", "DIRECTOR", "SECRETARY"] as Role[]}>
               <VerifyPage />
             </ProtectedRoute>
           }
@@ -72,7 +76,7 @@ function App() {
          <Route
           path="/academics"
           element={
-            <ProtectedRoute allowedRoles={["ADMIN", "INSTITUTE", "JD", "DIRECTOR", "SECRETARY"] as Role[]}>
+            <ProtectedRoute allowedRoles={["ADMIN", "INSTITUTE", "DIRECTOR", "SECRETARY"] as Role[]}>
               <AcademicPage />
             </ProtectedRoute>
           }
@@ -82,6 +86,38 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={["ADMIN", "INSTITUTE", "JD", "DIRECTOR", "SECRETARY"] as Role[]}>
               <WorkloadManagementPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/noc"
+          element={
+            <ProtectedRoute allowedRoles={["ADMIN", "INSTITUTE", "JD", "DIRECTOR", "SECRETARY"] as Role[]}>
+              <NocReviewPage />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/assets"
+          element={
+            <ProtectedRoute allowedRoles={["ADMIN", "INSTITUTE", "DIRECTOR", "SECRETARY"] as Role[]}>
+              <AssetManagementPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/legal"
+          element={
+            <ProtectedRoute allowedRoles={["ADMIN", "INSTITUTE", "DIRECTOR", "SECRETARY"] as Role[]}>
+              <LegalIssuesPage />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/students"
+          element={
+            <ProtectedRoute allowedRoles={["ADMIN", "INSTITUTE", "DIRECTOR", "SECRETARY"] as Role[]}>
+              <StudentRegistration />
             </ProtectedRoute>
           }
         />

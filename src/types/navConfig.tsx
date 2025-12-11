@@ -41,8 +41,6 @@ type BaseNavGroup = {
 };
 
 export type BaseNavItem = BaseNavLeaf | BaseNavGroup;
-
-// ========= GLOBAL NAV REGISTRY (one source of truth) =========
 export const NAV_REGISTRY: Record<NavItemId, BaseNavItem> = {
   DASHBOARD: {
     id: "DASHBOARD",
@@ -107,7 +105,7 @@ export const NAV_REGISTRY: Record<NavItemId, BaseNavItem> = {
   LEGAL_CASES: {
     id: "LEGAL_CASES",
     label: "Legal Cases",
-    path: "/legal-cases",
+    path: "/legal",
   },
   STUDENTS: {
     id: "STUDENTS",

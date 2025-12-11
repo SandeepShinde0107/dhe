@@ -31,7 +31,6 @@ const WorkloadManagementPage: React.FC = () => {
                         Calculate workload, configure formulas, and generate reports
                     </Typography>
 
-                    {/* Top tabs (Calculator / Formula Config / Reports) */}
                     <Box
                         sx={{
                             display: "flex",

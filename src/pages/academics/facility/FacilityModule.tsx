@@ -14,19 +14,15 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 
-import { FACILITY_GROUPS } from "../../../data/facility"; // ⬅ PASTE DUMMY DATA IN A FILE
+import { FACILITY_GROUPS } from "../../../data/facility";
 
 export default function FacilitiesModule() {
     const [groups, setGroups] = useState(FACILITY_GROUPS);
-
-    /** ===== GLOBAL COUNTERS ===== **/
     const all = useMemo(() => groups.flatMap(g => g.items), [groups]);
     const total = all.length;
     const available = all.filter(f => f.available).length;
     const unavailable = total - available;
     const rate = Math.round((available / total) * 100);
-
-    /** ===== TOGGLE STATUS ===== **/
     const toggleAvailability = (groupIndex: number, itemIndex: number) => {
         setGroups(prev => {
             const updated = [...prev];
@@ -41,7 +37,6 @@ export default function FacilitiesModule() {
 
     return (
         <>
-            {/* ===== PAGE HEADER ===== */}
             <Box
                 sx={{
                     display: "flex",
@@ -80,7 +75,6 @@ export default function FacilitiesModule() {
                     </Button>
                 </Box>
             </Box>
-            {/* ===== GLOBAL STATS ===== */}
             <Grid container spacing={2} mb={3}>
                 <Grid size={{ xs: 12, md: 3 }}>
                     <Card>
@@ -122,10 +116,6 @@ export default function FacilitiesModule() {
                     </Card>
                 </Grid>
             </Grid>
-
-            {/* ================================================================ */}
-            {/* ===================   FACILITY GROUP SECTIONS  ================= */}
-            {/* ================================================================ */}
             {groups.map((g, gi) => {
                 const active = g.items.filter(i => i.available).length;
                 const total = g.items.length;
@@ -145,7 +135,6 @@ export default function FacilitiesModule() {
                                 />
                             </Box>
 
-                            {/* ===== FACILITY LIST ===== */}
                             {g.items.map((f, fi) => (
                                 <Box
                                     key={fi}
@@ -210,9 +199,6 @@ export default function FacilitiesModule() {
                 );
             })}
 
-            {/* ================================================================ */}
-            {/* =====================   CHECKLIST SECTION   ==================== */}
-            {/* ================================================================ */}
             <Card>
                 <CardContent>
                     <Typography variant="h6" fontWeight={700} mb={2}>

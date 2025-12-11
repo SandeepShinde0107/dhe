@@ -38,11 +38,9 @@ type Props = {
     rows: Row[];
 };
 
-// Colors for category distribution
 const COLORS = ["#2563eb", "#a855f7", "#16a34a", "#f97316", "#e11d48", "#06b6d4", "#8b5cf6"];
 
 export default function AdmissionCharts({ rows }: Props) {
-    /** ---------------- YEAR-WISE TREND ---------------- **/
     const yearlyTotals = useMemo(() => {
         const map: Record<string, number> = {};
         rows.forEach(r => {
@@ -55,7 +53,6 @@ export default function AdmissionCharts({ rows }: Props) {
         }));
     }, [rows]);
 
-    /** ---------------- COURSE-WISE BAR ---------------- **/
     const barData = useMemo(
         () =>
             rows.map((r) => ({
@@ -65,9 +62,6 @@ export default function AdmissionCharts({ rows }: Props) {
         [rows]
     );
 
-    /** ---------------- CATEGORY BREAKDOWN ---------------- **/
-    // Convert each student into category share
-    // (Assuming category logic: General = remaining)
     const categoryTotals = useMemo(() => {
         const totals = {
             General: 0,
@@ -80,14 +74,13 @@ export default function AdmissionCharts({ rows }: Props) {
         };
 
         rows.forEach(r => {
-            totals.OBC += r.minority; // minority we treat as OBC
-            totals.ST += r.foreign; // dummy grouping
+            totals.OBC += r.minority; 
+            totals.ST += r.foreign; 
             totals.SC += r.ph;
             totals.EBC += r.nri;
             totals.VJNT += r.foreign;
             totals.NT += r.ph;
 
-            // General = remaining
             totals.General += r.total -
                 (r.minority + r.ph + r.nri + r.foreign);
         });
@@ -102,7 +95,6 @@ export default function AdmissionCharts({ rows }: Props) {
 
     const totalStudents = categoryPie.reduce((s, r) => s + r.value, 0);
 
-    /** ---------------- GENDER DISTRIBUTION ---------------- **/
     const genderTotals = useMemo(() => {
         let m = 0, f = 0, o = 0;
         rows.forEach(r => {
@@ -119,7 +111,7 @@ export default function AdmissionCharts({ rows }: Props) {
 
     return (
         <Grid container spacing={3}>
-            {/* =================== YEAR-WISE TREND =================== */}
+           
             <Grid size={{xs:12}}>
                 <Card>
                     <CardContent>
@@ -150,7 +142,6 @@ export default function AdmissionCharts({ rows }: Props) {
                 </Card>
             </Grid>
 
-            {/* =================== COURSE-WISE BAR =================== */}
             <Grid size={{xs:12,md:6}}>
                 <Card>
                     <CardContent>
@@ -176,7 +167,6 @@ export default function AdmissionCharts({ rows }: Props) {
                 </Card>
             </Grid>
 
-            {/* =================== CATEGORY PIE =================== */}
             <Grid size={{xs:12,md:6}}>
                 <Card>
                     <CardContent>
@@ -209,7 +199,7 @@ export default function AdmissionCharts({ rows }: Props) {
                 </Card>
             </Grid>
 
-            {/* =================== GENDER PIE =================== */}
+       
             <Grid size={{xs:12,md:6}}>
                 <Card>
                     <CardContent>
@@ -242,7 +232,7 @@ export default function AdmissionCharts({ rows }: Props) {
                 </Card>
             </Grid>
 
-            {/* =================== CATEGORY BREAKDOWN =================== */}
+     
             <Grid size={{xs:12,md:6}}>
                 <Card>
                     <CardContent>

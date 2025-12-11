@@ -18,9 +18,6 @@ const COLORS = ["#2563eb", "#9333ea", "#facc15", "#16a34a", "#dc2626", "#34d399"
 type Props = { rows: ScholarshipRow[] };
 
 export default function ScholarshipCharts({ rows }: Props) {
-    /* ======================================================
-       1) YEAR-WISE SCHOLARSHIP TREND (Beneficiaries + Amount)
-    ======================================================= */
 
     const yearMap: Record<string, { beneficiaries: number; amount: number }> = {};
 
@@ -35,12 +32,9 @@ export default function ScholarshipCharts({ rows }: Props) {
     const yearTrendData = Object.entries(yearMap).map(([year, x]) => ({
         year,
         beneficiaries: x.beneficiaries,
-        amount: +(x.amount / 100000).toFixed(1), // Convert to Lakhs
+        amount: +(x.amount / 100000).toFixed(1),
     }));
 
-    /* ======================================================
-       2) TYPE-WISE PIE DISTRIBUTION
-    ======================================================= */
     const typeMap: Record<string, number> = {};
 
     rows.forEach((r) => {
@@ -52,9 +46,7 @@ export default function ScholarshipCharts({ rows }: Props) {
         value,
     }));
 
-    /* ======================================================
-       3) CATEGORY-WISE BENEFICIARIES (Horizontal Bar)
-    ======================================================= */
+  
     const categoryMap: Record<string, number> = {};
 
     rows.forEach((r) => {
@@ -66,9 +58,6 @@ export default function ScholarshipCharts({ rows }: Props) {
         total,
     }));
 
-    /* ======================================================
-       4) GENDER-WISE PIE DISTRIBUTION
-    ======================================================= */
     const totalMale = rows.reduce((s, r) => s + r.gender.male, 0);
     const totalFemale = rows.reduce((s, r) => s + r.gender.female, 0);
 
@@ -77,9 +66,6 @@ export default function ScholarshipCharts({ rows }: Props) {
         { name: "Female", value: totalFemale },
     ];
 
-    /* ======================================================
-       5) AMOUNT BY TYPE (Right-side summary)
-    ======================================================= */
     const amountByTypeMap: Record<string, number> = {};
 
     rows.forEach((r) => {
@@ -92,13 +78,9 @@ export default function ScholarshipCharts({ rows }: Props) {
         scholarships: rows.filter((r) => r.type === type).length,
     }));
 
-    /* ======================================================
-       UI SECTION
-    ======================================================= */
 
     return (
         <Grid container spacing={3}>
-            {/* ======================= YEAR-WISE TREND ======================= */}
             <Grid size={{xs:12}}>
                 <Card>
                     <CardContent>
@@ -125,7 +107,6 @@ export default function ScholarshipCharts({ rows }: Props) {
                 </Card>
             </Grid>
 
-            {/* ======================= TYPE PIE ======================= */}
              <Grid size={{xs:12,md:6}}>
                 <Card>
                     <CardContent>
@@ -149,7 +130,6 @@ export default function ScholarshipCharts({ rows }: Props) {
                 </Card>
             </Grid>
 
-            {/* ======================= CATEGORY BAR ======================= */}
              <Grid size={{xs:12,md:6}}>
                 <Card>
                     <CardContent>
@@ -172,7 +152,6 @@ export default function ScholarshipCharts({ rows }: Props) {
                 </Card>
             </Grid>
 
-            {/* ======================= GENDER PIE + SUMMARY ======================= */}
              <Grid size={{xs:12,md:6}}>
                 <Card>
                     <CardContent>
@@ -195,7 +174,6 @@ export default function ScholarshipCharts({ rows }: Props) {
                 </Card>
             </Grid>
 
-            {/* ======================= AMOUNT SUMMARY ======================= */}
              <Grid size={{xs:12,md:6}}>
                 <Card>
                     <CardContent>

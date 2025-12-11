@@ -14,7 +14,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { NAV_REGISTRY, ROLE_NAVS } from "../types/navConfig";
 import type { BaseNavItem } from "../types/navConfig";
 import type { Role } from "../types/roles";
-import { useAuth } from "../context/AuthContext"; // ⬅️ import this
+import { useAuth } from "../context/AuthContext"; 
 
 function useCurrentRole(): Role {
   const { auth } = useAuth();
@@ -25,7 +25,7 @@ export default function SideNav() {
   const navigate = useNavigate();
   const location = useLocation();
   const activePath = location.pathname;
-  const role = useCurrentRole(); // 🔥 this now comes from auth
+  const role = useCurrentRole(); 
 
   const topLevelItems: BaseNavItem[] = ROLE_NAVS[role].map(
     (id) => NAV_REGISTRY[id]

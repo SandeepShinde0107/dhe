@@ -13,16 +13,14 @@ import {
 import { Card, CardContent, Typography, Grid, Box } from "@mui/material";
 import type { ResearchGuide } from "../../data/data.ts";
 
-const COLORS = ["#2563eb", "#f59e0b", "#16a34a"]; // Blue = Guides, Orange = Reg, Green = Completed
+const COLORS = ["#2563eb", "#f59e0b", "#16a34a"];
 
 type Props = {
     rows: ResearchGuide[];
 };
 
 export default function ResearchCharts({ rows }: Props) {
-    /* =============================
-       DEPARTMENT WISE BAR DATA
-    ============================= */
+  
     const departmentSummary = rows.reduce((map, r) => {
         if (!map[r.department]) {
             map[r.department] = { guides: 0, registered: 0, completed: 0 };
@@ -40,17 +38,12 @@ export default function ResearchCharts({ rows }: Props) {
         completed: departmentSummary[dep].completed,
     }));
 
-    /* =============================
-       PROGRAM PIE DATA
-    ============================= */
     const programData = [
         { name: "PhD", value: rows.filter((r) => r.program === "PHD").length },
         { name: "M.Phil", value: rows.filter((r) => r.program === "MPHIL").length },
     ];
 
-    /* =============================
-       GENDER-WISE BAR DATA
-    ============================= */
+  
     const totalMale = rows.reduce((s, r) => s + r.gender.male, 0);
     const totalFemale = rows.reduce((s, r) => s + r.gender.female, 0);
 
@@ -67,9 +60,6 @@ export default function ResearchCharts({ rows }: Props) {
         },
     ];
 
-    /* =============================
-        DEPARTMENT LIST TABLE DATA
-    ============================= */
     const departmentList = Object.keys(departmentSummary).map((d) => {
         const reg = departmentSummary[d].registered;
         const com = departmentSummary[d].completed;
@@ -86,7 +76,7 @@ export default function ResearchCharts({ rows }: Props) {
 
     return (
         <Grid container spacing={3}>
-            {/* ================= DEPARTMENT BAR ================= */}
+           
             <Grid size={{ xs: 12 }}>
                 <Card>
                     <CardContent>
@@ -167,7 +157,6 @@ export default function ResearchCharts({ rows }: Props) {
                 </Card>
             </Grid>
 
-            {/* ================= DEPARTMENT LIST ================= */}
             <Grid size={{ xs: 12 }}>
                 <Card>
                     <CardContent>

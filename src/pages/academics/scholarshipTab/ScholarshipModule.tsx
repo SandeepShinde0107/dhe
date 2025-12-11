@@ -14,20 +14,7 @@ import {
 
 import ScholarshipTable from "./ScholarshipTable";
 import ScholarshipCharts from "./ScholarshipCharts";
-import type { ScholarshipRow } from "../../../types/scholarship"; // define or adjust
-
-
-// export type ScholarshipRow = {
-//     name: string;
-//     type: "Government" | "Institutional" | "Private" | "International";
-//     agency: string;
-//     year: string;
-//     beneficiaries: number;
-//     gender: { male: number; female: number };
-//     category: "General" | "OBC" | "SC" | "ST" | "EBC" | "VJNT";
-//     totalAmount: number;
-//     perStudent: number;
-// };
+import type { ScholarshipRow } from "../../../types/scholarship"; 
 
 const DUMMY_SCHOLARSHIPS: ScholarshipRow[] = [
     {
@@ -155,7 +142,6 @@ export default function ScholarshipModule() {
     const handleFilter = (k: string, v: any) =>
         setFilters(prev => ({ ...prev, [k]: v }));
 
-    /** ========== FILTER RESULT ========== **/
     const filteredRows = useMemo(() => {
         let data = [...DUMMY_SCHOLARSHIPS];
 
@@ -172,7 +158,6 @@ export default function ScholarshipModule() {
         return data;
     }, [filters]);
 
-    /** ========== TOTALS ========== **/
     const totalScholarships = filteredRows.length;
     const totalBeneficiaries = filteredRows.reduce((s, r) => s + r.beneficiaries, 0);
     const totalAmount = filteredRows.reduce((s, r) => s + r.totalAmount, 0);
@@ -196,7 +181,6 @@ export default function ScholarshipModule() {
                 </Box>
             </Box>
 
-            {/* ===== Summary Cards ===== */}
             <Grid container spacing={2} mb={3}>
                 <Grid size={{ xs: 12, md: 3 }}>
                     <Card><CardContent>
@@ -231,7 +215,6 @@ export default function ScholarshipModule() {
                 </Grid>
             </Grid>
 
-            {/* ===== FILTERS ===== */}
             <Card sx={{ mb: 3 }}>
                 <CardContent>
                     <Typography fontWeight={700} mb={2}>
@@ -279,7 +262,6 @@ export default function ScholarshipModule() {
                 </CardContent>
             </Card>
 
-            {/* ===== SUB TABS ===== */}
             <Tabs value={tab} onChange={(_, v) => setTab(v)} sx={{ mb: 3 }}>
                 <Tab value="data" label="Scholarship Data" />
                 <Tab value="charts" label="Statistics & Charts" />

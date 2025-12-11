@@ -150,7 +150,6 @@ const DUMMY_ADMISSIONS: AdmissionRow[] = [
     
 ];
 
-// ====== STAT CALCULATIONS ======
 const calculateStats = (rows: AdmissionRow[]) => {
     const totalAdmissions = rows.reduce((s, r) => s + r.total, 0);
     const totalMinority = rows.reduce((s, r) => s + r.minority, 0);
@@ -208,7 +207,7 @@ export default function AdmissionModule() {
 
     return (
         <Box sx={{ maxWidth: "95%", mx: "auto" }}>
-            {/* ===================== HEADER ===================== */}
+          
             <Box
                 sx={{
                     display: "flex",
@@ -250,7 +249,6 @@ export default function AdmissionModule() {
                 </Box>
             </Box>
 
-            {/* ===================== STAT CARDS ===================== */}
             <Grid container spacing={2.5} mb={3}>
                  <Grid size={{xs:12,md:3}}>
                     <Card sx={{ borderRadius: 3, boxShadow: "none", border: "1px solid #e5e7eb" }}>
@@ -329,7 +327,6 @@ export default function AdmissionModule() {
                 </Grid>
             </Grid>
 
-            {/* ===================== FILTERS ===================== */}
             <Card sx={{ mb: 3 }}>
                 <CardContent>
                     <Typography variant="h6" fontWeight={700} mb={2}>
@@ -400,7 +397,6 @@ export default function AdmissionModule() {
                 </CardContent>
             </Card>
 
-            {/* ===================== SUB TABS ===================== */}
             <Tabs value={subTab} onChange={(_, v) => setSubTab(v)} sx={{ mb: 3 }}>
                 <Tab value="data" label="Admission Data" />
                 <Tab value="charts" label="Statistics & Charts" />
