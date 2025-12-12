@@ -28,9 +28,6 @@ import {
   type SubmitHandler,
   type UseFormRegister,
 } from "react-hook-form";
-
-/* ------------ TYPES ------------ */
-
 type ContactInfo = {
   name: string;
   email: string;
@@ -42,13 +39,12 @@ type Course = {
   name: string;
   type: string;
   subjects: string;
-  intake: string; // keep as string in form, convert to number when summing
+  intake: string;
   durationValue: string;
   durationUnit: string;
 };
 
 export type InstituteForm = {
-  // Part A
   instituteName: string;
   instituteType: string;
   apexBody: string;
@@ -64,7 +60,6 @@ export type InstituteForm = {
   principal: ContactInfo;
   registrar: ContactInfo;
 
-  // Part B
   yearOfEstablishment?: string;
   recognitionStatus?: string;
   recognitionDocs?: File | null;
@@ -73,7 +68,6 @@ export type InstituteForm = {
   naacGrade?: string;
   affiliatedUniversity?: string;
 
-  // Part C
   courses: Course[];
 };
 
@@ -115,8 +109,6 @@ const steps = [
   "Part C: Courses & Intake",
 ];
 
-/* ------------ SHARED STYLES ------------ */
-
 const textFieldSx = {
   "& .MuiOutlinedInput-root": {
     borderRadius: 2,
@@ -151,8 +143,6 @@ const FieldLabel: React.FC<{ label: string; required?: boolean }> = ({
     )}
   </Typography>
 );
-
-/* ------------ MAIN COMPONENT ------------ */
 
 export const InstituteRegister: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -189,8 +179,6 @@ export const InstituteRegister: React.FC = () => {
   }, 0);
 
   const progress = Math.round(((activeStep + 1) / steps.length) * 100);
-
-  /* ------------ VALIDATION PER STEP ------------ */
 
   const fieldsForStep = (step: number): string[] => {
     if (step === 0) {
@@ -260,8 +248,6 @@ export const InstituteRegister: React.FC = () => {
     alert("Proceeding to OTP verification (mock) – payload in console.");
   };
 
-  /* ------------ FILE HANDLERS ------------ */
-
   const triggerApexBrowse = () => fileInputRef.current?.click();
   const triggerRecognitionBrowse = () => recognitionFileRef.current?.click();
 
@@ -276,11 +262,8 @@ export const InstituteRegister: React.FC = () => {
         shouldValidate: true,
       });
 
-  /* ------------ STEP CONTENTS ------------ */
-
   const PartA = () => (
     <>
-      {/* Basic Information */}
       <Card
         sx={{
           mb: 3,
@@ -431,8 +414,6 @@ export const InstituteRegister: React.FC = () => {
           </Grid>
         </CardContent>
       </Card>
-
-      {/* Address */}
       <Card
         sx={{
           mb: 3,
@@ -547,8 +528,6 @@ export const InstituteRegister: React.FC = () => {
           </Grid>
         </CardContent>
       </Card>
-
-      {/* Contacts */}
       <ContactCard
         title="Principal Contact Information"
         subtitle="Enter the contact details of the principal"
@@ -707,8 +686,6 @@ export const InstituteRegister: React.FC = () => {
           </Grid>
         </CardContent>
       </Card>
-
-      {/* UGC / NCTE / NAAC / Affiliation */}
       <Card
         sx={{
           mb: 2,
@@ -841,7 +818,6 @@ export const InstituteRegister: React.FC = () => {
 
   const PartC = () => (
     <>
-      {/* Courses Offered header + Add button */}
       <Box
         sx={{
           display: "flex",
@@ -882,8 +858,6 @@ export const InstituteRegister: React.FC = () => {
           Add Course
         </Button>
       </Box>
-
-      {/* Course Cards */}
       {courseFields.map((course, index) => (
         <Card
           key={course.id}
@@ -959,8 +933,6 @@ export const InstituteRegister: React.FC = () => {
                   )}
                 />
               </Grid>
-
-              {/* Subjects + Add button (UI only) */}
                <Grid size={{xs:12, md:10}}>
                 <FieldLabel label="Subjects" required />
                 <TextField
@@ -988,14 +960,11 @@ export const InstituteRegister: React.FC = () => {
                     minHeight: 40,
                   }}
                   startIcon={<AddIcon />}
-                  // onClick: in real app you might push to tags list
                   onClick={() => {}}
                 >
                   Add
                 </Button>
               </Grid>
-
-              {/* Intake & Duration */}
               <Grid size={{xs:12, md:6}}>
                 <FieldLabel label="Student Intake" required />
                 <TextField
@@ -1029,7 +998,7 @@ export const InstituteRegister: React.FC = () => {
               </Grid>
 
               <Grid size={{xs:12, md:3}}>
-                <FieldLabel label=" " /> {/* empty to align with duration label */}
+                <FieldLabel label=" " /> 
                 <Controller
                   name={`courses.${index}.durationUnit` as const}
                   control={control}
@@ -1052,8 +1021,6 @@ export const InstituteRegister: React.FC = () => {
           </CardContent>
         </Card>
       ))}
-
-      {/* Total Intake Summary */}
       <Card
         sx={{
           mb: 3,
@@ -1096,9 +1063,6 @@ export const InstituteRegister: React.FC = () => {
       </Card>
     </>
   );
-
-  /* ------------ RENDER ------------ */
-
   return (
     <MainLayout>
       <Box sx={{ minHeight: "100vh", bgcolor: "#f5f7fb", py: 4 }}>
@@ -1110,8 +1074,6 @@ export const InstituteRegister: React.FC = () => {
             Complete all three parts to register your institution with the
             Department of Higher Education
           </Typography>
-
-          {/* Step + progress */}
           <Box sx={{ mb: 2 }}>
             <Typography variant="body2" color="text.secondary" mb={1}>
               Step {activeStep + 1} of {steps.length}
@@ -1142,7 +1104,6 @@ export const InstituteRegister: React.FC = () => {
             </Box>
           </Box>
 
-          {/* Step pills */}
           <Box
             sx={{
               display: "flex",
@@ -1159,7 +1120,6 @@ export const InstituteRegister: React.FC = () => {
             <StepPill index={3} label={steps[2]} active={activeStep === 2} />
           </Box>
 
-          {/* Outer card */}
           <Card
             sx={{
               borderRadius: 3,
@@ -1190,7 +1150,6 @@ export const InstituteRegister: React.FC = () => {
                 {activeStep === 1 && <PartB />}
                 {activeStep === 2 && <PartC />}
 
-                {/* Bottom buttons */}
                 <Box
                   sx={{
                     display: "flex",
@@ -1257,8 +1216,6 @@ export const InstituteRegister: React.FC = () => {
   );
 };
 
-/* ------------ STEP PILL ------------ */
-
 const StepPill: React.FC<{
   index: number;
   label: string;
@@ -1301,8 +1258,6 @@ const StepPill: React.FC<{
     </Typography>
   </Box>
 );
-
-/* ------------ CONTACT CARD ------------ */
 
 type ContactCardProps = {
   title: string;

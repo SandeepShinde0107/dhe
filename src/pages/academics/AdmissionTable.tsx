@@ -131,7 +131,6 @@ export default function AdmissionTable({ rows }: Props) {
                     </Table>
                 </Box>
 
-                {/* Pagination */}
                 <Box
                     sx={{
                         mt: 2,

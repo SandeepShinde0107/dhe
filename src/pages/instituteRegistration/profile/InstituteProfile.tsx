@@ -1,4 +1,3 @@
-// src/pages/Institute/InstituteProfile.tsx
 import React, { useState } from "react";
 import MainLayout from "../../../components/MainLayout";
 import {
@@ -15,8 +14,6 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import EventIcon from "@mui/icons-material/Event";
-
-// tab contents
 import { BasicInfoTab } from "../../../components/instituteProfile/BasicInfoTab";
 import { ContactTab } from "../../../components/instituteProfile/ContactTab";
 import { AdministrationTab } from "../../../components/instituteProfile/AdministrationTab";
@@ -36,7 +33,6 @@ export const InstituteProfile: React.FC = () => {
     <MainLayout>
       <Box sx={{ minHeight: "100vh", bgcolor: "#f5f7fb", py: 3 }}>
         <Box sx={{ maxWidth: "95%", mx: "auto", px: { xs: 2, md: 0 } }}>
-          {/* -------- HEADER -------- */}
           <Box
             sx={{
               display: "flex",
@@ -53,8 +49,6 @@ export const InstituteProfile: React.FC = () => {
                 Institute Code: MIT-2024-001
               </Typography>
             </Box>
-
-            {/* status pill */}
             <Chip
               label="Approved"
               sx={{
@@ -68,8 +62,6 @@ export const InstituteProfile: React.FC = () => {
               }}
             />
           </Box>
-
-          {/* -------- STAT CARDS -------- */}
           <Grid container spacing={2} mb={3}>
             <Grid size={{ xs:12 ,md:3}}>
               <StatCard
@@ -92,8 +84,6 @@ export const InstituteProfile: React.FC = () => {
               <StatCard icon={<EventIcon />} value="2010" label="Established" />
             </Grid>
           </Grid>
-
-          {/* -------- OUTER CARD WITH TABS & CONTENT -------- */}
           <Card
             sx={{
               borderRadius: 3,
@@ -102,7 +92,6 @@ export const InstituteProfile: React.FC = () => {
               bgcolor: "#f9fafb",
             }}
           >
-            {/* Tabs bar */}
             <Tabs
               value={activeTab}
               onChange={handleTabChange}
@@ -131,7 +120,6 @@ export const InstituteProfile: React.FC = () => {
               <Tab label="Programs" value="programs" />
             </Tabs>
 
-            {/* Tab content */}
             <CardContent sx={{ p: 0 }}>
               {activeTab === "basic" && <BasicInfoTab />}
               {activeTab === "contact" && <ContactTab />}
@@ -145,9 +133,6 @@ export const InstituteProfile: React.FC = () => {
     </MainLayout>
   );
 };
-
-/* ------------ Small reusable stat card ------------ */
-
 type StatCardProps = {
   icon: React.ReactNode;
   value: string;

@@ -1,4 +1,3 @@
-// src/components/SubjectProgress.tsx
 import React from "react";
 import { Box, Typography, LinearProgress } from "@mui/material";
 

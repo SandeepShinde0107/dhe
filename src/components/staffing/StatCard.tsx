@@ -1,4 +1,3 @@
-// components/staffing/StatCard.tsx
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import React from "react";
 
@@ -52,7 +51,7 @@ export const StatCard: React.FC<StatCardProps> = ({
             <Typography
               variant="body2"
               fontWeight={600}
-              sx={{ color: "#16a34a" }} // green
+              sx={{ color: "#16a34a" }}
             >
               {filled}
             </Typography>
@@ -65,7 +64,7 @@ export const StatCard: React.FC<StatCardProps> = ({
             <Typography
               variant="body2"
               fontWeight={600}
-              sx={{ color: "#dc2626" }} // red
+              sx={{ color: "#dc2626" }} 
             >
               {vacant}
             </Typography>

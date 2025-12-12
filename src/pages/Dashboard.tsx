@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Divider, Grid, Typography } from "@mui/material";
 import MainLayout from "../components/MainLayout";
 import KpiCard from "../components/KpiCard";
@@ -7,7 +6,6 @@ import QuickActionCard from "../components/QuickActionCard";
 import AnalyticsCard from "../components/AnalyticsCard";
 import { DASHBOARD_CONFIG_BY_ROLE } from "../config/DashboardConfig";
 import type { Role } from "../types/roles";
-import type { AnalyticsVariant } from "../config/DashboardConfig";
 
 
 export default function Dashboard() {
@@ -95,8 +93,6 @@ export default function Dashboard() {
                         ))}
                     </Grid>
                 </Box>
-
-
                 {config.analyticsVariant && (
                     <Box sx={{ mt: 5 }}>
                         <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>

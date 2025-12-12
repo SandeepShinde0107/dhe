@@ -11,7 +11,7 @@ import PrintIcon from "@mui/icons-material/Print";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import PictureAsPdfOutlinedIcon from "@mui/icons-material/PictureAsPdfOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import React, { useState } from "react";
+import  { useState } from "react";
 import DetailedViewTable from "./DetailedViewTable";
 import ChartsTab from "./Charts";
 import RecommendationsTab from "./RecommendatiosTab";
@@ -21,7 +21,6 @@ export default function WorkloadReport() {
 
   return (
     <Card sx={{ borderRadius: 2, p: 3 }}>
-      {/* ================= HEADER ================= */}
       <Box sx={{ mb: 2, display: "flex", justifyContent: "space-between" }}>
         <Box>
           <Typography variant="h5" fontWeight={700}>
@@ -50,10 +49,8 @@ export default function WorkloadReport() {
           </Button>
         </Box>
       </Box>
-
-      {/* ================= KPI CARDS ================= */}
       <Grid container spacing={2} mb={3}>
-         <Grid size={{xs:12,md:3}}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <Card sx={{ borderRadius: 2, p: 2 }}>
             <Typography fontSize={14} color="text.secondary">
               Total Subjects
@@ -63,7 +60,7 @@ export default function WorkloadReport() {
           </Card>
         </Grid>
 
-         <Grid size={{xs:12,md:3}}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <Card sx={{ borderRadius: 2, p: 2 }}>
             <Typography fontSize={14} color="text.secondary">
               Total Workload
@@ -73,7 +70,7 @@ export default function WorkloadReport() {
           </Card>
         </Grid>
 
-         <Grid size={{xs:12,md:3}}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <Card sx={{ borderRadius: 2, p: 2 }}>
             <Typography fontSize={14} color="text.secondary">
               Staff Status
@@ -87,7 +84,7 @@ export default function WorkloadReport() {
           </Card>
         </Grid>
 
-         <Grid size={{xs:12,md:3}}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <Card sx={{ borderRadius: 2, p: 2 }}>
             <Typography fontSize={14} color="text.secondary">
               Total Vacancies
@@ -101,8 +98,6 @@ export default function WorkloadReport() {
           </Card>
         </Grid>
       </Grid>
-
-      {/* ================= REPORT SUBTABS ================= */}
       <Card
         sx={{
           borderRadius: 900,
@@ -143,7 +138,6 @@ export default function WorkloadReport() {
         </Tabs>
       </Card>
 
-      {/* ================= TAB: OVERVIEW ================= */}
       {reportTab === 0 && (
         <Card sx={{ borderRadius: 2, p: 3 }}>
           <Typography variant="h6" fontWeight={700} mb={0.5}>
@@ -154,7 +148,7 @@ export default function WorkloadReport() {
           </Typography>
 
           <Grid container spacing={2}>
-             <Grid size={{xs:12,md:4}}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Card sx={{ borderRadius: 2, p: 2 }}>
                 <Typography color="text.secondary" fontSize={14}>
                   Total Students
@@ -163,7 +157,7 @@ export default function WorkloadReport() {
               </Card>
             </Grid>
 
-             <Grid size={{xs:12,md:4}}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Card sx={{ borderRadius: 2, p: 2 }}>
                 <Typography color="text.secondary" fontSize={14}>
                   Average Utilization
@@ -172,7 +166,7 @@ export default function WorkloadReport() {
               </Card>
             </Grid>
 
-             <Grid size={{xs:12,md:4}}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <Card sx={{ borderRadius: 2, p: 2 }}>
                 <Typography color="text.secondary" fontSize={14}>
                   Subjects with Vacancy
@@ -184,7 +178,6 @@ export default function WorkloadReport() {
             </Grid>
           </Grid>
 
-          {/* ALERT BAR */}
           <Box
             sx={{
               mt: 3,
@@ -205,7 +198,7 @@ export default function WorkloadReport() {
           </Box>
         </Card>
       )}
-      {reportTab === 1 && <DetailedViewTable/>}
+      {reportTab === 1 && <DetailedViewTable />}
       {reportTab === 2 && <ChartsTab />}
       {reportTab === 3 && <RecommendationsTab />}
     </Card>

@@ -99,7 +99,6 @@ export default function NewFormulaForm({
               </Grid>
             </Grid>
 
-            {/* BUTTONS */}
             <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-end", mt: 3 }}>
               <Button variant="outlined" onClick={onClose}>
                 Cancel

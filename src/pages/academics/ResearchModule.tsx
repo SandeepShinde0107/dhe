@@ -14,7 +14,7 @@ import {
 
 import ResearchGuidesTable from "./ResearchGuides";
 import ResearchCharts from "./ResearchCharts";
-import { RESEARCH_GUIDES } from "../../data/data"; // dataset
+import { RESEARCH_GUIDES } from "../../data/data"; 
 
 export default function ResearchModule() {
     const [subTab, setSubTab] = useState("guides");
@@ -30,7 +30,6 @@ export default function ResearchModule() {
         setFilters(prev => ({ ...prev, [field]: value }));
     };
 
-    /** ====== APPLY FILTERS ====== */
     const filteredRows = useMemo(() => {
         let data = [...RESEARCH_GUIDES];
 
@@ -48,7 +47,6 @@ export default function ResearchModule() {
         return data;
     }, [filters]);
 
-    /** ====== METRICS ====== */
     const totalGuides = filteredRows.length;
 
     const totalRegistered = filteredRows.reduce((s, r) => s + r.registered, 0);
@@ -89,7 +87,6 @@ export default function ResearchModule() {
             </Typography>
         </Box>
 
-        {/* Action Buttons */}
         <Box sx={{ display: "flex", gap: 1 }}>
             <Button variant="outlined" sx={{ borderRadius: 2 }}>
                 Export
@@ -104,8 +101,7 @@ export default function ResearchModule() {
         </Box>
     </Box>
 
-            {/* === TOP STATS === */}
-            <Grid container spacing={2} mb={3}>
+          <Grid container spacing={2} mb={3}>
               <Grid size={{xs:12,md:3}}>
                     <Card>
                         <CardContent>
@@ -159,7 +155,7 @@ export default function ResearchModule() {
                 </Grid>
             </Grid>
 
-            {/* ==== DISTRIBUTION ROW ==== */}
+           
             <Grid container spacing={2} mb={3}>
                 <Grid size={{xs:12,md:6}}>
                     <Card>
@@ -195,7 +191,6 @@ export default function ResearchModule() {
                 </Grid>
             </Grid>
 
-            {/* ==== FILTERS ==== */}
             <Card sx={{ mb: 3 }}>
                 <CardContent>
                     <Typography variant="h6" fontWeight={700} mb={1}>
@@ -262,7 +257,6 @@ export default function ResearchModule() {
                 </CardContent>
             </Card>
 
-            {/* ===== TAB SWITCH ===== */}
             <Tabs value={subTab} onChange={(_, v) => setSubTab(v)} sx={{ mb: 3 }}>
                 <Tab value="guides" label="Research Guides" />
                 <Tab value="stats" label="Statistics & Charts" />

@@ -43,7 +43,6 @@ const verifiedDocs = [
 export const ProgramsTab: React.FC = () => {
   return (
     <Box sx={{ p: 3 }}>
-      {/* ---------- 1. ACADEMIC PROGRAMS (white card) ---------- */}
       <Card
         sx={{
           borderRadius: 3,
@@ -75,7 +74,6 @@ export const ProgramsTab: React.FC = () => {
                   justifyContent: "space-between",
                 }}
               >
-                {/* left: name + duration */}
                 <Box>
                   <Typography variant="subtitle1" fontWeight={700}>
                     {program.name}
@@ -84,19 +82,18 @@ export const ProgramsTab: React.FC = () => {
                     Duration: {program.durationYears} years
                   </Typography>
                 </Box>
-
-                {/* right: intake + Approved chip */}
                 <Grid
                   container
-                  item
-                  xs="auto"
-                  alignItems="center"
-                  justifyContent="flex-end"
-                  columnGap={2}
-                  rowGap={1}
+                  size={{
+                    xs: "auto",
+                  }}
+
                   sx={{ width: "auto" }}
                 >
-                  <Box sx={{ textAlign: "right" }}>
+                  <Box sx={{
+                    textAlign: "right", alignItems: "center",
+                    justifyContent: "flex-end", columnGap: 2, rowGap: 1
+                  }}>
                     <Typography
                       variant="body2"
                       color="text.secondary"
@@ -126,7 +123,6 @@ export const ProgramsTab: React.FC = () => {
         </CardContent>
       </Card>
 
-      {/* ---------- 2. VERIFIED DOCUMENTS (white card) ---------- */}
       <Card
         sx={{
           borderRadius: 3,

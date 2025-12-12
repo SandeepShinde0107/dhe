@@ -6,21 +6,17 @@ import {
   Typography,
 } from "@mui/material";
 import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
-import LayersOutlinedIcon from "@mui/icons-material/LayersOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 
 export default function CourtroomsJudgesTab() {
   return (
     <Box>
       <Grid container spacing={3}>
-        {/* Left Section – Courtroom Allocations */}
         <Grid size={{xs:12,md:7}}>
           <Typography variant="h6" fontWeight={700} mb={2}>
             Courtroom Allocations
           </Typography>
-
           <Grid container spacing={2}>
-            {/* Court No. 1 */}
             <Grid size={{xs:12 }}>
               <Card sx={{ p: 3, borderRadius: 3 }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -51,8 +47,6 @@ export default function CourtroomsJudgesTab() {
                 </Box>
               </Card>
             </Grid>
-
-            {/* Court No. 2 */}
             <Grid size={{xs:12 }}>
               <Card sx={{ p: 3, borderRadius: 3 }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -82,8 +76,6 @@ export default function CourtroomsJudgesTab() {
                 </Box>
               </Card>
             </Grid>
-
-            {/* Court No. 3 (Occupied) */}
             <Grid size={{xs:12 }}>
               <Card sx={{ p: 3, borderRadius: 3 }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -122,14 +114,10 @@ export default function CourtroomsJudgesTab() {
             </Grid>
           </Grid>
         </Grid>
-
-        {/* Right Section – Judicial Assignments */}
          <Grid size={{xs:12,md:5 }}>
           <Typography variant="h6" fontWeight={700} mb={2}>
             Judicial Assignments
           </Typography>
-
-          {/* Judge 1 */}
           <Card sx={{ p: 3, mb: 2, borderRadius: 3 }}>
             <Box display="flex" justifyContent="space-between">
               <Typography variant="h6" fontWeight={700}>
@@ -160,8 +148,6 @@ export default function CourtroomsJudgesTab() {
               </Typography>
             </Box>
           </Card>
-
-          {/* Judge 2 */}
           <Card sx={{ p: 3, borderRadius: 3 }}>
             <Box display="flex" justifyContent="space-between">
               <Typography variant="h6" fontWeight={700}>

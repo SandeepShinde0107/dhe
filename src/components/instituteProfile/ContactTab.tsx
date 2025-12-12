@@ -1,4 +1,3 @@
-// src/components/instituteProfile/ContactTab.tsx
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import RoomOutlinedIcon from "@mui/icons-material/RoomOutlined";
@@ -10,7 +9,6 @@ import PrintOutlinedIcon from "@mui/icons-material/PrintOutlined";
 export const ContactTab: React.FC = () => {
   return (
     <Box sx={{ p: 3 }}>
-      {/* Title with icon */}
       <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
         <RoomOutlinedIcon sx={{ mr: 1, color: "#0f6b73" }} />
         <Typography variant="h6" fontWeight={700}>
@@ -22,7 +20,6 @@ export const ContactTab: React.FC = () => {
       </Typography>
 
       <Grid container spacing={4}>
-        {/* LEFT COLUMN */}
          <Grid size={{xs:12, md:6}}>
           <Section label="Address">
             <Typography variant="body1" fontWeight={500}>
@@ -45,8 +42,6 @@ export const ContactTab: React.FC = () => {
             </Typography>
           </Section>
         </Grid>
-
-        {/* RIGHT COLUMN */}
          <Grid size={{xs:12, md:6}}>
           <Section label="Email" icon={<MailOutlineOutlinedIcon />}>
             <Typography variant="body1" fontWeight={500}>

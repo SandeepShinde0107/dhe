@@ -22,7 +22,6 @@ const CONFIGURED_FORMULAS = [
   },
 ];
 
-// STATUS BADGE
 const StatusBadge = ({ status }: any) => (
   <Box
     sx={{

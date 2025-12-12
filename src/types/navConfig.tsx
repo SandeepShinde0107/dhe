@@ -1,5 +1,4 @@
 
-// navConfig.tsx
 import React from "react";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
@@ -137,7 +136,6 @@ export const NAV_REGISTRY: Record<NavItemId, BaseNavItem> = {
   },
 };
 
-// ========= ROLE → TOP-LEVEL ITEMS =========
 export const ROLE_NAVS: Record<Role, NavItemId[]> = {
   ADMIN: [
     "DASHBOARD",

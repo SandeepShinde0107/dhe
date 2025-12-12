@@ -78,9 +78,6 @@ const WorkloadManagementPage: React.FC = () => {
                             );
                         })}
                     </Box>
-
-
-                    {/* Tab content */}
                     {activeTab === 0 && <WorkloadCalculator />}
                     {activeTab === 1 && <FormulaConfig />}
                     {activeTab === 2 && <WorkloadReport />}

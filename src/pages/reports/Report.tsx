@@ -20,7 +20,6 @@ import BusinessOutlinedIcon from "@mui/icons-material/BusinessOutlined";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
-import InsertChartOutlinedIcon from "@mui/icons-material/InsertChartOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import CloudDownloadOutlinedIcon from "@mui/icons-material/CloudDownloadOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
@@ -61,7 +60,6 @@ export default function Report() {
     const [activeTab, setActiveTab] = useState<MainTab>("dashboard");
     const [subTab, setSubTab] = useState<SubTab>("Overview");
 
-    // --- Chart Data (same as friend’s code) ---
 
     const monthlyRegistrations = [
         { month: "Jan", value: 16 },
@@ -100,7 +98,6 @@ export default function Report() {
         { m: "Jun", applications: 62, approved: 57, rejected: 5 },
     ];
 
-    // Institutes
     const pieData = [
         { name: "College", value: 980, color: "#4285F4" },
         { name: "University", value: 145, color: "#34A853" },
@@ -116,7 +113,6 @@ export default function Report() {
         { name: "Others", value: 390 },
     ];
 
-    // Staffing
     const categoryData = [
         { name: "General", count: 24000 },
         { name: "OBC", count: 16000 },
@@ -151,7 +147,6 @@ export default function Report() {
         { month: "Jun", applications: 32, approved: 28 },
     ];
 
-    // Students
     const enrollmentTrend = [
         { year: "2019", students: 2400000 },
         { year: "2020", students: 2600000 },
@@ -189,7 +184,6 @@ export default function Report() {
         { type: "Private", count: 130000 },
     ];
 
-    // Operations
     const grievanceData = [
         { name: "Pending", value: 23, color: "#3B82F6" },
         { name: "Under Investigation", value: 15, color: "#10B981" },
@@ -244,7 +238,6 @@ export default function Report() {
                     modules
                 </Typography>
 
-                {/* Left: pill tabs */}
                 <Box
                     sx={{
                         display: "inline-flex",
@@ -257,7 +250,7 @@ export default function Report() {
                     <Tabs
                         value={activeTab}
                         onChange={handleMainTabChange}
-                        TabIndicatorProps={{ sx: { display: "none" } }} // hide underline
+                        TabIndicatorProps={{ sx: { display: "none" } }}
                         sx={{
                             minHeight: "auto",
                             "& .MuiTabs-flexContainer": {
@@ -286,11 +279,6 @@ export default function Report() {
                         <Tab label="Report Generator" value="generator" />
                     </Tabs>
                 </Box>
-
-
-                {/* <Divider sx={{ mb: 3 }} /> */}
-
-                {/* DASHBOARD CONTENT */}
                 {activeTab === "dashboard" && (
                     <Box>
                         <Typography variant="h6" sx={{ fontWeight: 700 }}>
@@ -304,7 +292,6 @@ export default function Report() {
                             Comprehensive analytics and insights across all modules
                         </Typography>
 
-                        {/* Time filter */}
                         <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
                             <FormControl size="small" sx={{ minWidth: 160 }}>
                                 <InputLabel>Time Range</InputLabel>
@@ -318,7 +305,6 @@ export default function Report() {
                             </FormControl>
                         </Box>
 
-                        {/* SUMMARY CARDS */}
                         <Grid container spacing={2} sx={{ mb: 3 }}>
                             <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                                 <Card
@@ -460,7 +446,6 @@ export default function Report() {
                             </Grid>
                         </Grid>
 
-                        {/* SUB-TABS */}
                         <Box
                             sx={{
                                 mb: 3,
@@ -499,7 +484,6 @@ export default function Report() {
                             })}
                         </Box>
 
-                        {/* ---- OVERVIEW TAB ---- */}
                         {subTab === "Overview" && (
                             <Grid container spacing={3}>
                                 <Grid size={{ xs: 12, md: 6 }}>
@@ -638,7 +622,6 @@ export default function Report() {
                             </Grid>
                         )}
 
-                        {/* ---- INSTITUTES TAB ---- */}
                         {subTab === "Institutes" && (
                             <Grid container spacing={3}>
                                 <Grid size={{ xs: 12, md: 6 }}>
@@ -731,7 +714,6 @@ export default function Report() {
                             </Grid>
                         )}
 
-                        {/* ---- STAFFING TAB ---- */}
                         {subTab === "Staffing" && (
                             <Grid container spacing={3}>
                                 <Grid size={{ xs: 12, md: 6 }}>
@@ -886,8 +868,6 @@ export default function Report() {
                                 </Grid>
                             </Grid>
                         )}
-
-                        {/* ---- STUDENTS TAB ---- */}
                         {subTab === "Students" && (
                             <Grid container spacing={3}>
                                 <Grid size={{ xs: 12, md: 6 }}>

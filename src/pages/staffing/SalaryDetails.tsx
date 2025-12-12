@@ -25,7 +25,6 @@ type Props = {
     onBack: () => void;
 };
 
-// Dummy Salary Structure
 const BASIC_PAY = 75000;
 
 const ALLOWANCES = [
@@ -72,7 +71,6 @@ export default function SalaryDetails({ staff, onBack }: Props) {
 
     return (
         <Box sx={{ maxWidth: "95%", mx: "auto", mt: 3 }}>
-            {/* BACK BUTTON */}
             <Button
                 variant="outlined"
                 onClick={onBack}
@@ -80,8 +78,6 @@ export default function SalaryDetails({ staff, onBack }: Props) {
             >
                 ← Back to Staff List
             </Button>
-
-            {/* STAFF HEADER */}
             <Card sx={{ mb: 3 }}>
                 <CardContent>
                     <Typography variant="h5" fontWeight={700}>
@@ -97,8 +93,6 @@ export default function SalaryDetails({ staff, onBack }: Props) {
                     />
                 </CardContent>
             </Card>
-
-            {/* BASIC PAY CARD */}
             <Card sx={{ mb: 3 }}>
                 <CardContent>
                     <Typography variant="h6" fontWeight={700}>
@@ -113,8 +107,6 @@ export default function SalaryDetails({ staff, onBack }: Props) {
                     </Typography>
                 </CardContent>
             </Card>
-
-            {/* ALLOWANCES */}
             <Card sx={{ mb: 3 }}>
                 <CardContent>
                     <Typography variant="h6" fontWeight={700}>
@@ -164,8 +156,6 @@ export default function SalaryDetails({ staff, onBack }: Props) {
                     </Table>
                 </CardContent>
             </Card>
-
-            {/* DEDUCTIONS */}
             <Card sx={{ mb: 3 }}>
                 <CardContent>
                     <Typography variant="h6" fontWeight={700}>
@@ -208,7 +198,6 @@ export default function SalaryDetails({ staff, onBack }: Props) {
                 </CardContent>
             </Card>
 
-            {/* SALARY SUMMARY */}
             <Card sx={{ mb: 3 }}>
                 <CardContent>
                     <Typography variant="h6" fontWeight={700}>

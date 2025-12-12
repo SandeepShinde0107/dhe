@@ -33,8 +33,6 @@ export default function AcademicPage() {
                 <Typography variant="body2" color="text.secondary" mb={3}>
                     Manage admissions, research activities, scholarships, and facilities
                 </Typography>
-
-                {/* MAIN ACADEMIC TABS */}
                 <Box
                     sx={{
                         display: "flex",

@@ -27,7 +27,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-import LogoutIcon from "@mui/icons-material/TrendingDown"; // arrow-ish
+import LogoutIcon from "@mui/icons-material/TrendingDown";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
@@ -37,8 +37,6 @@ import { SeatsByGenderTab } from "../../components/staffing/SeatByGenderTab";
 import type { ApprovedSeatRow } from "../../types/staffingtypes";
 import StaffList from "./StaffList";
 import SalaryDetails from "./SalaryDetails";
-
-/* ---------- Local row type for the main table ---------- */
 
 type SeatRow = {
     id: number;
@@ -62,8 +60,6 @@ type FiltersState = {
     showVacantOnly: boolean;
     search: string;
 };
-
-/* ---------- Dummy data ---------- */
 
 const SEATS_DATA: SeatRow[] = [
     {
@@ -158,23 +154,18 @@ const SEATS_DATA: SeatRow[] = [
     },
 ];
 
-/* ---------- Helpers ---------- */
-
 const calcVacant = (row: { approved: number; filled: number }) =>
     row.approved - row.filled;
 
 const calcFillPct = (approved: number, filled: number) =>
     approved === 0 ? 0 : Math.round((filled / approved) * 100);
 
-/** Shared style for white cards */
 const whiteCardSx = {
     borderRadius: 3,
     boxShadow: "none",
     border: "1px solid #e5e7eb",
     bgcolor: "#ffffff",
 };
-
-/* ---------- Aggregation helpers for inner tabs ---------- */
 
 const makeSummaryBySubject = (rows: SeatRow[]): ApprovedSeatRow[] => {
     const map = new Map<string, { approved: number; filled: number }>();
@@ -253,11 +244,9 @@ const makeSummaryByGender = (rows: SeatRow[]): ApprovedSeatRow[] => {
     });
 };
 
-/* ---------- Component ---------- */
-
 export const StaffingPage: React.FC = () => {
     const [seatRows, setSeatRows] = useState<SeatRow[]>(SEATS_DATA);
-    const [staffingTab, setStaffingTab] = useState(0); // 0 Approved Seats, 1 Staff List, 2 Salary Details
+    const [staffingTab, setStaffingTab] = useState(0); 
     const [innerTab, setInnerTab] = useState<InnerTab>("all");
     const [selectedEmployee, setSelectedEmployee] = useState<any | null>(null);
     const [filters, setFilters] = useState<FiltersState>({
@@ -270,7 +259,6 @@ export const StaffingPage: React.FC = () => {
         search: "",
     });
 
-    // Pagination state (must be top-level hooks)
     const rowsPerPage = 10;
     const [page, setPage] = useState(0);
 
@@ -279,8 +267,6 @@ export const StaffingPage: React.FC = () => {
     const [editApproved, setEditApproved] = useState<number>(0);
     const [editFilled, setEditFilled] = useState<number>(0);
 
-
-    /* ---- Header stats (overall, not filtered) ---- */
     const totalApproved = useMemo(
         () => seatRows.reduce((sum, r) => sum + r.approved, 0),
         [seatRows]
@@ -290,8 +276,6 @@ export const StaffingPage: React.FC = () => {
         [seatRows]
     );
     const totalVacant = totalApproved - totalFilled;
-
-    /* ---- Filtered rows for main table ---- */
     const filteredRows = useMemo(() => {
         let rows = [...seatRows];
 
@@ -316,8 +300,6 @@ export const StaffingPage: React.FC = () => {
             return true;
         });
     }, [filters, innerTab, seatRows]);
-
-    /* ---- Aggregated data for inner cards ---- */
     const subjectSummary = useMemo(
         () => makeSummaryBySubject(filteredRows),
         [filteredRows]
@@ -331,14 +313,12 @@ export const StaffingPage: React.FC = () => {
         [filteredRows]
     );
 
-    // Recalculate pagination when filtered rows change
     const pageCount = Math.max(1, Math.ceil(filteredRows.length / rowsPerPage));
     const startIndex = page * rowsPerPage;
     const endIndex = Math.min(startIndex + rowsPerPage, filteredRows.length);
     const pageRows = filteredRows.slice(startIndex, endIndex);
 
     useEffect(() => {
-        // If current page is out of range after filtering, clamp it
         if (page >= pageCount) {
             setPage(pageCount - 1);
         }
@@ -346,7 +326,7 @@ export const StaffingPage: React.FC = () => {
 
     const handleFilterChange = (field: keyof FiltersState, value: any) => {
         setFilters((prev) => ({ ...prev, [field]: value }));
-        setPage(0); // reset pagination whenever filters change
+        setPage(0);
     };
 
     const handleClearFilters = () => {
@@ -380,7 +360,6 @@ export const StaffingPage: React.FC = () => {
         <MainLayout>
             <Box sx={{ minHeight: "100vh", bgcolor: "#f5f7fb", py: 4 }}>
                 <Box sx={{ maxWidth: "95%", mx: "auto", px: { xs: 2, md: 0 } }}>
-                    {/* Page heading */}
                     <Typography variant="h4" fontWeight={700} mb={0.5}>
                         Staffing Management
                     </Typography>
@@ -388,7 +367,6 @@ export const StaffingPage: React.FC = () => {
                         Manage approved seats, staff records, and salary information
                     </Typography>
 
-                    {/* Top-level tabs */}
                     <Box
                         sx={{
                             display: "flex",
@@ -436,10 +414,8 @@ export const StaffingPage: React.FC = () => {
                         })}
                     </Box>
 
-                    {/* Approved Seats tab */}
                     {staffingTab === 0 && (
                         <>
-                            {/* Sub heading */}
                             <Typography variant="h5" fontWeight={700} mb={0.5}>
                                 Approved Seats Management
                             </Typography>
@@ -448,7 +424,6 @@ export const StaffingPage: React.FC = () => {
                                 and gender-wise allocation
                             </Typography>
 
-                            {/* Stats cards */}
                             <Grid container spacing={2.5} mb={3}>
                                 <Grid size={{ xs: 12, md: 4 }}>
                                     <Card sx={whiteCardSx}>
@@ -560,8 +535,6 @@ export const StaffingPage: React.FC = () => {
                                     </Card>
                                 </Grid>
                             </Grid>
-
-                            {/* Filters card */}
                             <Card sx={{ ...whiteCardSx, mb: 3 }}>
                                 <CardContent sx={{ p: { xs: 2.5, md: 3 } }}>
                                     <Typography variant="h6" fontWeight={700} mb={0.5}>
@@ -728,8 +701,6 @@ export const StaffingPage: React.FC = () => {
                                     </Grid>
                                 </CardContent>
                             </Card>
-
-                            {/* Inner tabs (All / By Subject / By Category / By Gender) */}
                             <Box
                                 sx={{
                                     display: "inline-flex",
@@ -756,7 +727,6 @@ export const StaffingPage: React.FC = () => {
                                 </Tabs>
                             </Box>
 
-                            {/* Subject / Category / Gender summary views */}
                             {innerTab === "subject" && (
                                 <SeatsBySubjectTab rows={subjectSummary} />
                             )}
@@ -911,7 +881,6 @@ export const StaffingPage: React.FC = () => {
                                             </Table>
                                         </Box>
 
-                                        {/* bottom pagination bar */}
                                         <Box
                                             sx={{
                                                 mt: 2.5,
@@ -995,7 +964,6 @@ export const StaffingPage: React.FC = () => {
 
                 </Box>
             </Box>
-            {/* ======================= EDIT MODAL ======================= */}
             <Dialog
                 open={editOpen}
                 onClose={() => setEditOpen(false)}

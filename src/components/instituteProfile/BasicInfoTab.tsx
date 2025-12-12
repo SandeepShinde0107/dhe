@@ -1,4 +1,3 @@
-// src/components/instituteProfile/BasicInfoTab.tsx
 import React from "react";
 import { Box, Grid, Typography, Chip } from "@mui/material";
 
@@ -13,7 +12,6 @@ export const BasicInfoTab: React.FC = () => {
       </Typography>
 
       <Grid container spacing={4}>
-        {/* Left column */}
          <Grid size={{xs:12, md:6}}>
           <InfoRow
             label="Institute Name"
@@ -27,8 +25,6 @@ export const BasicInfoTab: React.FC = () => {
           />
           <InfoRow label="Accreditation" value="NAAC A+ Grade" />
         </Grid>
-
-        {/* Right column */}
           <Grid size={{xs:12, md:6}}>
           <InfoRow label="Institute Code" value="MIT-2024-001" />
           <InfoRow

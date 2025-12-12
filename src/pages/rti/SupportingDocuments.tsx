@@ -69,7 +69,6 @@ export default function SupportingDocuments({
         Upload any supporting documents (optional)
       </Typography>
 
-      {/* UPLOAD AREA */}
       <Box
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleDrop}
@@ -105,7 +104,6 @@ export default function SupportingDocuments({
         </Typography>
       </Box>
 
-      {/* FILE LIST */}
       {files.length > 0 && (
         <Box sx={{ mt: 3 }}>
           <Typography sx={{ fontWeight: 600, mb: 1 }}>Uploaded Files</Typography>
@@ -137,11 +135,8 @@ export default function SupportingDocuments({
       <Typography sx={{ mt: 2, fontSize: 13, color: "text.secondary" }}>
         Accepted formats: PDF, JPG, PNG. Maximum size: 5MB per file
       </Typography>
-
-      {/* BUTTONS */}
       <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 4 }}>
-        
-        {/* SAVE DRAFT ALWAYS SAME */}
+   
         <Button
           variant="outlined"
           sx={{ px: 4, borderRadius: 2 }}
@@ -150,7 +145,6 @@ export default function SupportingDocuments({
           Save Draft
         </Button>
 
-        {/* MODE-BASED FINAL BUTTON */}
         {mode === "rti" ? (
           <Button
             variant="contained"

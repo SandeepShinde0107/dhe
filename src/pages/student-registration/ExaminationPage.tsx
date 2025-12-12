@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Typography, Card, Tabs, Tab } from "@mui/material";
+import  { useState } from "react";
+import { Box, Typography } from "@mui/material";
 import ExamApplications from "./examinationTab/ExamApplications";
 import ApplyForExam from "./examinationTab/ApplyForExam";
 import AdmitCards from "./examinationTab/AdmitCards";

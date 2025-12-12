@@ -1,4 +1,3 @@
-// src/pages/InstituteRegister/InstituteRegister.types.ts
 export type ContactInfo = {
   name: string;
   email: string;
@@ -10,13 +9,12 @@ export type Course = {
   name: string;
   type: string;
   subjects: string;
-  intake: string;        // stored as string in form, convert to number for total
+  intake: string;  
   durationValue: string;
   durationUnit: string;
 };
 
 export type InstituteForm = {
-  // Part A
   instituteName: string;
   instituteType: string;
   apexBody: string;
@@ -32,7 +30,6 @@ export type InstituteForm = {
   principal: ContactInfo;
   registrar: ContactInfo;
 
-  // Part B
   yearOfEstablishment?: string;
   recognitionStatus?: string;
   recognitionDocs?: File | null;
@@ -41,7 +38,6 @@ export type InstituteForm = {
   naacGrade?: string;
   affiliatedUniversity?: string;
 
-  // Part C
   courses: Course[];
 };
 

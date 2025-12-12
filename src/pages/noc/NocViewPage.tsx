@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
     Box,
     Button,
@@ -21,8 +21,8 @@ import {
     Snackbar,
     Alert,
     Stack,
-    Divider,
 } from "@mui/material";
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DownloadIcon from "@mui/icons-material/Download";
 import HistoryIcon from "@mui/icons-material/History";
@@ -47,7 +47,7 @@ type DocumentItem = {
     id: string;
     name: string;
     sizeMB: number;
-    uploadedAt: string; // yyyy-mm-dd
+    uploadedAt: string;
 };
 
 type TimelineItem = {
@@ -55,40 +55,32 @@ type TimelineItem = {
     title: string;
     datetime: string;
     by: string;
-    details?: string;
+    remarks?: string;
 };
+
 type NocViewPageProps = {
-    data: any;           // the selected NOC row
+    data: any;
     role: "JD Office" | "Director" | "Secretary";
-    onBack: () => void;  // function to switch back to list
+    onBack: () => void;
 };
 
-export default function NocViewPage({ data,role, onBack }: NocViewPageProps) {
+export default function NocViewPage({ data, role, onBack }: NocViewPageProps) {
 
-    const applicationNumber = data.applicationNo;
-    const instituteName = data.instituteName;
-    const nocType = data.type;
-    const totalVacancies = data.vacancies;
-    const submittedDate = data.submittedDate;
-    const justification = data.summary || "No justification provided.";
+    const [status, setStatus] = useState<string>(data.status);
+    const [modalAction, setModalAction] =
+        useState<"correction" | "forward" | "reject" | "approve" | null>(null);
+    const [remarks, setRemarks] = useState("");
 
-    const [status, setStatus] = useState<string>("Under Review (JD)");
+    const [snack, setSnack] = useState({
+        open: false,
+        message: "",
+        severity: "success" as "success" | "info" | "error",
+    });
 
     const roster: RosterRow[] = [
-        {
-            id: 1,
-            postName: "Assistant Professor",
-            subject: "Mathematics",
-            category: "General",
-            gender: "Male",
-            approved: 3,
-            filled: 1,
-            vacant: 2,
-            remarks: "Urgent requirement",
-        },
-        { id: 2, postName: "Associate Professor", subject: "Physics", category: "OBC", gender: "Female", approved: 4, filled: 2, vacant: 3 },
+        { id: 1, postName: "Assistant Professor", subject: "Math", category: "General", gender: "Male", approved: 3, filled: 1, vacant: 2 },
+        { id: 2, postName: "Associate Professor", subject: "Physics", category: "OBC", gender: "Female", approved: 4, filled: 2, vacant: 2 },
         { id: 3, postName: "Lecturer", subject: "Chemistry", category: "SC", gender: "Male", approved: 5, filled: 3, vacant: 2 },
-        { id: 4, postName: "Lecturer", subject: "Biology", category: "General", gender: "Female", approved: 2, filled: 0, vacant: 2 },
     ];
 
     const documents: DocumentItem[] = [
@@ -96,153 +88,207 @@ export default function NocViewPage({ data,role, onBack }: NocViewPageProps) {
         { id: "d2", name: "roster_document_2.pdf", sizeMB: 3, uploadedAt: "2025-12-10" },
     ];
 
-    const timeline: TimelineItem[] = [
-        { id: "t1", title: "Application Submitted", datetime: "2/1/2024, 3:30:00 PM", by: "Dr. Sunita Mehta (Principal)" },
-        // add more events here
-    ];
+    const timeline: TimelineItem[] = useMemo(() => {
+        const t: TimelineItem[] = [
+            {
+                id: "1",
+                title: "Application Submitted",
+                datetime: "1/15/2024, 3:30 PM",
+                by: "Dr. Rajesh Kumar (Principal)",
+            },
+            {
+                id: "2",
+                title: "JD Office Review",
+                datetime: "1/18/2024, 8:00 PM",
+                by: "Mr. Suresh Patil (JD)",
+                remarks: "Roster verified. Recommended.",
+            },
+        ];
 
-    // Snack notifications
-    const [snack, setSnack] = useState<{ open: boolean; message: string; severity?: "success" | "info" | "error" }>({
-        open: false,
-        message: "",
-        severity: "success",
-    });
-
-    // Modal state
-    const [actionModalOpen, setActionModalOpen] = useState(false);
-    const [currentAction, setCurrentAction] = useState<"request_correction" | "forward" | "reject" | null>(null);
-    const [remarks, setRemarks] = useState("");
-    const [remarksError, setRemarksError] = useState<string | null>(null);
-
-    const openActionModal = (action: typeof currentAction) => {
-        setCurrentAction(action);
-        setRemarks("");
-        setRemarksError(null);
-        setActionModalOpen(true);
-    };
-
-    const closeActionModal = () => {
-        setActionModalOpen(false);
-        setCurrentAction(null);
-        setRemarks("");
-        setRemarksError(null);
-    };
-
-    const handleConfirmAction = () => {
-        // validation: request_correction and reject require remarks (as example)
-        if ((currentAction === "request_correction" || currentAction === "reject") && !remarks.trim()) {
-            setRemarksError("Remarks are required for this action");
-            return;
+        if (role !== "JD Office") {
+            t.push({
+                id: "3",
+                title: "Director Review",
+                datetime: "1/20/2024, 4:30 PM",
+                by: "Dr. Meena Joshi (Director)",
+                remarks: "Forwarded to Secretary",
+            });
         }
 
-        // perform fake action (replace with API call)
-        if (currentAction === "request_correction") {
-            setStatus("Correction Requested");
-            setSnack({ open: true, message: "Correction requested — institute will be notified.", severity: "success" });
-        } else if (currentAction === "forward") {
-            setStatus("Forwarded to Director");
-            setSnack({ open: true, message: "Application forwarded to Director.", severity: "success" });
-        } else if (currentAction === "reject") {
+        if ((role === "Secretary" || status === "Approved") && status !== "Rejected") {
+            t.push({
+                id: "4",
+                title: "Secretary Review",
+                datetime: "1/22/2024, 9:30 PM",
+                by: "Mr. Anil Deshmukh (Secretary)",
+                remarks: status === "Approved" ? "NOC Granted" : "Pending approval"
+            });
+        }
+
+        return t;
+    }, [role, status]);
+
+    const renderActions = () => {
+        if (status === "Approved" && role === "Secretary") {
+            return (
+                <Card sx={{ p: 2, bgcolor: "#e8f8ef" }}>
+                    <Typography fontWeight={700}>NOC Certificate</Typography>
+                    <Typography variant="caption">Approved on 1/22/2024</Typography>
+
+                    <Button variant="contained" sx={{ mt: 1, bgcolor: "#0b6b66" }} startIcon={<DownloadIcon />}>
+                        Download
+                    </Button>
+                </Card>
+            );
+        }
+
+        if (role === "JD Office") {
+            return (
+                <Box display="flex" gap={2}>
+                    <Button variant="outlined" startIcon={<ReportProblemIcon />}
+                        onClick={() => setModalAction("correction")}>
+                        Request Correction
+                    </Button>
+
+                    <Button variant="contained" sx={{ bgcolor: "#0b6b66" }}
+                        startIcon={<ForwardToInboxIcon />}
+                        onClick={() => setModalAction("forward")}>
+                        Forward to Director
+                    </Button>
+
+                    <Button variant="contained" color="error" startIcon={<RequestPageIcon />}
+                        onClick={() => setModalAction("reject")}>
+                        Reject
+                    </Button>
+                </Box>
+            );
+        }
+
+        if (role === "Director") {
+            return (
+                <Box display="flex" gap={2}>
+                    <Button variant="contained" sx={{ bgcolor: "#0b6b66" }}
+                        onClick={() => setModalAction("forward")}>
+                        Forward to Secretary
+                    </Button>
+
+                    <Button variant="contained" color="error"
+                        onClick={() => setModalAction("reject")}>
+                        Reject
+                    </Button>
+                </Box>
+            );
+        }
+
+        if (role === "Secretary") {
+            return (
+                <Box display="flex" gap={2}>
+                    <Button variant="contained" sx={{ bgcolor: "#0b6b66" }}
+                        onClick={() => setModalAction("approve")}>
+                        Approve NOC
+                    </Button>
+
+                    <Button variant="contained" color="error"
+                        onClick={() => setModalAction("reject")}>
+                        Reject
+                    </Button>
+                </Box>
+            );
+        }
+    };
+    const handleActionSubmit = () => {
+        if (
+            (modalAction === "correction" || modalAction === "reject")
+            && !remarks.trim()
+        ) {
+            return alert("Remarks are required.");
+        }
+
+        if (modalAction === "correction") setStatus("Correction Requested");
+
+        if (modalAction === "forward") {
+            setStatus(role === "JD Office" ? "Forwarded to Director" : "Forwarded to Secretary");
+        }
+
+        if (modalAction === "approve") {
+            setStatus("Approved");
+        }
+
+        if (modalAction === "reject") {
             setStatus("Rejected");
-            setSnack({ open: true, message: "Application rejected.", severity: "info" });
         }
 
-        closeActionModal();
+        setSnack({
+            open: true,
+            message: `Action completed: ${modalAction}`,
+            severity: "success",
+        });
+
+        setModalAction(null);
+        setRemarks("");
     };
-
-    // computed stats
-    const totalApproved = roster.reduce((s, r) => s + r.approved, 0);
-    const totalFilled = roster.reduce((s, r) => s + r.filled, 0);
-    const totalVac = roster.reduce((s, r) => s + r.vacant, 0);
-
-    // --- small helpers ---
-    const renderStatusChip = (text: string) => (
-        <Chip label={text} size="small" sx={{ bgcolor: "#f3f7f6", borderRadius: 2 }} />
-    );
 
     return (
         <Box>
-            {/* HEADER */}
-            <Box display="flex" justifyContent="space-between" alignItems="flex-start" mb={3}>
-                <Box>
-                    <Typography variant="h4" fontWeight={700} mb={1}>
-                        NOC Review & Approval
-                    </Typography>
-                    <Typography color="text.secondary">Review and process NOC applications for staff recruitment</Typography>
-                </Box>
-            </Box>
-
-            {/* Back link */}
             <Box mb={2}>
-                <MuiLink
-                    component="button"
-                    onClick={onBack}
-                    sx={{ display: "inline-flex", alignItems: "center", gap: 1 }}
-                >
+                <MuiLink component="button" onClick={onBack}
+                    sx={{ display: "inline-flex", gap: 1 }}>
                     <ArrowBackIcon fontSize="small" />
                     Back to Applications
                 </MuiLink>
             </Box>
 
-            {/* Application details */}
-            <Card sx={{ p: 3, mb: 3, borderRadius: 2 }}>
+            <Typography variant="h4" fontWeight={700} mb={1}>
+                NOC Review & Approval
+            </Typography>
+            <Typography color="text.secondary" mb={3}>
+                Review and process NOC applications
+            </Typography>
+
+            <Card sx={{ p: 3, mb: 3 }}>
                 <Grid container spacing={2}>
-                    <Grid size={{ xs: 12, md: 8 }}>
-                        <Typography variant="h6" fontWeight={700} mb={1}>
+                    <Grid size={{xs:12, md:8}}>
+                        <Typography variant="h6" fontWeight={700}>
                             NOC Application Details
                         </Typography>
-                        <Typography variant="caption" color="text.secondary" display="block" mb={2}>
-                            Application No: {applicationNumber}
+
+                        <Typography variant="caption" color="text.secondary">
+                            Application No: {data.applicationNo}
                         </Typography>
 
-                        <Box mb={1}>
-                            <Typography variant="body2" color="text.secondary">
-                                Institute Name
-                            </Typography>
-                            <Typography fontWeight={700}>{instituteName}</Typography>
+                        <Box mt={2}>
+                            <Typography color="text.secondary">Institute</Typography>
+                            <Typography fontWeight={700}>{data.instituteName}</Typography>
                         </Box>
 
-                        <Box mb={1}>
-                            <Typography variant="body2" color="text.secondary">
-                                Total Vacancies
-                            </Typography>
-                            <Typography fontWeight={700} color="primary">
-                                {totalVacancies}
-                            </Typography>
+                        <Box mt={2}>
+                            <Typography color="text.secondary">Total Vacancies</Typography>
+                            <Typography fontWeight={700} color="primary">{data.vacancies}</Typography>
                         </Box>
 
-                        <Box>
-                            <Typography variant="body2" color="text.secondary" mb={1}>
-                                Justification
-                            </Typography>
-                            <Typography color="text.secondary">{justification}</Typography>
+                        <Box mt={2}>
+                            <Typography color="text.secondary">Justification</Typography>
+                            <Typography>{data.summary || "No justification provided"}</Typography>
                         </Box>
                     </Grid>
 
-                    <Grid size={{ xs: 12, md: 4 }}>
-                        <Box display="flex" justifyContent="space-between" alignItems="flex-start">
+                    <Grid size={{xs:12, md:4}}>
+                        <Box display="flex" justifyContent="space-between">
                             <Box>
-                                <Typography variant="body2" color="text.secondary">
-                                    NOC Type
-                                </Typography>
-                                <Typography fontWeight={700}>{nocType}</Typography>
+                                <Typography color="text.secondary">Type</Typography>
+                                <Typography fontWeight={700}>{data.type}</Typography>
 
-                                <Box mt={2}>
-                                    <Typography variant="body2" color="text.secondary">
-                                        Submitted Date
-                                    </Typography>
-                                    <Typography fontWeight={700}>{submittedDate}</Typography>
-                                </Box>
+                                <Typography color="text.secondary" mt={2}>Submitted</Typography>
+                                <Typography fontWeight={700}>{data.submittedDate}</Typography>
                             </Box>
 
-                            <Box>{renderStatusChip(status)}</Box>
+                            <Chip label={status} sx={{ bgcolor: "#eef5f3" }} />
                         </Box>
                     </Grid>
                 </Grid>
             </Card>
 
-            {/* Roster Details */}
-            <Card sx={{ p: 3, mb: 3, borderRadius: 2 }}>
+            <Card sx={{ p: 3, mb: 3 }}>
                 <Typography variant="h6" fontWeight={700} mb={2}>
                     Roster Details
                 </Typography>
@@ -251,7 +297,7 @@ export default function NocViewPage({ data,role, onBack }: NocViewPageProps) {
                     <TableHead>
                         <TableRow>
                             <TableCell>S.No</TableCell>
-                            <TableCell>Post Name</TableCell>
+                            <TableCell>Post</TableCell>
                             <TableCell>Subject</TableCell>
                             <TableCell>Category</TableCell>
                             <TableCell>Gender</TableCell>
@@ -266,58 +312,45 @@ export default function NocViewPage({ data,role, onBack }: NocViewPageProps) {
                         {roster.map((r, idx) => (
                             <TableRow key={r.id}>
                                 <TableCell>{idx + 1}</TableCell>
-                                <TableCell>
-                                    <Typography fontWeight={700}>{r.postName}</Typography>
-                                </TableCell>
+                                <TableCell>{r.postName}</TableCell>
                                 <TableCell>{r.subject}</TableCell>
                                 <TableCell>{r.category}</TableCell>
                                 <TableCell>{r.gender}</TableCell>
                                 <TableCell>{r.approved}</TableCell>
                                 <TableCell>{r.filled}</TableCell>
                                 <TableCell>
-                                    <Typography color={r.vacant > 0 ? "error" : "text.primary"} fontWeight={700}>
+                                    <Typography fontWeight={700} color={r.vacant > 0 ? "error" : "text.primary"}>
                                         {r.vacant}
                                     </Typography>
                                 </TableCell>
-                                <TableCell>{r.remarks ?? "-"}</TableCell>
+                                <TableCell>{r.remarks || "-"}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </Card>
 
-            {/* Documents */}
-            <Card sx={{ p: 3, mb: 3, borderRadius: 2 }}>
+            <Card sx={{ p: 3, mb: 3 }}>
                 <Typography variant="h6" fontWeight={700} mb={2}>
                     Roster Documents
                 </Typography>
 
                 <Stack spacing={1}>
                     {documents.map((doc) => (
-                        <Box
-                            key={doc.id}
-                            sx={{
-                                border: "1px solid #eef1f2",
-                                borderRadius: 2,
-                                p: 2,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                            }}
-                        >
+                        <Box key={doc.id} display="flex" justifyContent="space-between"
+                            sx={{ p: 2, border: "1px solid #eee", borderRadius: 2 }}>
                             <Box>
                                 <Typography fontWeight={700}>{doc.name}</Typography>
-                                <Typography variant="caption" color="text.secondary">
-                                    {doc.sizeMB} MB • Uploaded on {doc.uploadedAt}
+                                <Typography variant="caption">
+                                    {doc.sizeMB} MB • Uploaded {doc.uploadedAt}
                                 </Typography>
                             </Box>
 
-                            <IconButton
-                                onClick={() => {
-                                    // replace with actual download logic
-                                    setSnack({ open: true, message: `Downloading ${doc.name}...`, severity: "info" });
-                                }}
-                            >
+                            <IconButton onClick={() => setSnack({
+                                open: true,
+                                message: `Downloading ${doc.name}`,
+                                severity: "info"
+                            })}>
                                 <DownloadIcon />
                             </IconButton>
                         </Box>
@@ -325,156 +358,94 @@ export default function NocViewPage({ data,role, onBack }: NocViewPageProps) {
                 </Stack>
             </Card>
 
-            {/* Timeline */}
-            <Card sx={{ p: 3, mb: 3, borderRadius: 2 }}>
-                <Typography variant="h6" fontWeight={700} mb={2}>
+            <Card sx={{ p: 3, mb: 3 }}>
+                <Typography variant="h6" fontWeight={700}>
                     Review Timeline
                 </Typography>
 
-                <Stack spacing={2}>
+                <Stack spacing={2} mt={2}>
                     {timeline.map((t) => (
-                        <Box key={t.id} display="flex" gap={2} alignItems="flex-start">
-                            <Box sx={{ mt: 0.5 }}>
-                                <HistoryIcon color="action" />
-                            </Box>
+                        <Box key={t.id} display="flex" gap={2}>
+                            <HistoryIcon color="action" />
                             <Box>
                                 <Typography fontWeight={700}>{t.title}</Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    {t.datetime}
-                                </Typography>
+                                <Typography variant="body2">{t.datetime}</Typography>
                                 <Typography variant="body2">By: {t.by}</Typography>
-                                {t.details && <Typography variant="caption">{t.details}</Typography>}
+
+                                {t.remarks && (
+                                    <Typography
+                                        sx={{ mt: 1, p: 1, bgcolor: "#f4f6f7", borderRadius: 1 }}
+                                        variant="body2"
+                                    >
+                                        <strong>Remarks:</strong> {t.remarks}
+                                    </Typography>
+                                )}
                             </Box>
                         </Box>
                     ))}
                 </Stack>
             </Card>
 
-            {/* Review Actions */}
-            <Card sx={{ p: 3, mb: 6, borderRadius: 2 }}>
+            <Card sx={{ p: 3, mb: 6 }}>
                 <Typography variant="h6" fontWeight={700} mb={2}>
                     Review Actions
                 </Typography>
 
-                <Box display="flex" gap={2}>
-                    <Button
-                        variant="outlined"
-                        startIcon={<ReportProblemIcon />}
-                        onClick={() => openActionModal("request_correction")}
-                    >
-                        Request Correction
-                    </Button>
-
-                    <Button
-                        variant="contained"
-                        startIcon={<ForwardToInboxIcon />}
-                        sx={{ bgcolor: "#0b6b66" }}
-                        onClick={() => openActionModal("forward")}
-                    >
-                        Forward to Director
-                    </Button>
-
-                    <Button variant="contained" color="error" startIcon={<RequestPageIcon />} onClick={() => openActionModal("reject")}>
-                        Reject
-                    </Button>
-                </Box>
+                {renderActions()}
             </Card>
 
-            {/* ACTION MODAL */}
-            <Dialog open={actionModalOpen} onClose={closeActionModal} maxWidth="sm" fullWidth>
-                <DialogTitle sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    {currentAction === "request_correction" && "Request Correction"}
-                    {currentAction === "forward" && "Forward to Director"}
-                    {currentAction === "reject" && "Reject Application"}
-                    <IconButton size="small" onClick={closeActionModal}>
+            <Dialog open={modalAction !== null} onClose={() => setModalAction(null)} fullWidth maxWidth="sm">
+                <DialogTitle>
+                    {modalAction === "correction" && "Request Correction"}
+                    {modalAction === "forward" && "Forward Application"}
+                    {modalAction === "reject" && "Reject Application"}
+                    {modalAction === "approve" && "Approve NOC"}
+
+                    <IconButton
+                        onClick={() => setModalAction(null)}
+                        sx={{ float: "right" }}
+                    >
                         <CloseIcon />
                     </IconButton>
                 </DialogTitle>
 
                 <DialogContent dividers>
-                    {currentAction === "request_correction" && (
-                        <>
-                            <Typography color="text.secondary" mb={2}>
-                                The institute will be notified to make corrections.
-                            </Typography>
-
-                            <TextField
-                                label="Remarks *"
-                                fullWidth
-                                multiline
-                                minRows={4}
-                                value={remarks}
-                                onChange={(e) => {
-                                    setRemarks(e.target.value);
-                                    if (remarksError) setRemarksError(null);
-                                }}
-                                error={Boolean(remarksError)}
-                                helperText={remarksError ?? " "}
-                            />
-                        </>
+                    {(modalAction === "correction" ||
+                        modalAction === "reject") && (
+                        <TextField
+                            label="Remarks *"
+                            fullWidth
+                            multiline
+                            minRows={3}
+                            value={remarks}
+                            onChange={(e) => setRemarks(e.target.value)}
+                        />
                     )}
 
-                    {currentAction === "forward" && (
-                        <>
-                            <Typography color="text.secondary" mb={2}>
-                                This will forward the application to the Director for further action. (Optional remarks)
-                            </Typography>
-
-                            <TextField
-                                label="Remarks"
-                                fullWidth
-                                multiline
-                                minRows={3}
-                                placeholder="Enter any notes for the Director (optional)"
-                                value={remarks}
-                                onChange={(e) => setRemarks(e.target.value)}
-                            />
-                        </>
-                    )}
-
-                    {currentAction === "reject" && (
-                        <>
-                            <Typography color="text.secondary" mb={2}>
-                                Rejecting will close the application. Provide reason for rejection.
-                            </Typography>
-
-                            <TextField
-                                label="Remarks *"
-                                fullWidth
-                                multiline
-                                minRows={4}
-                                value={remarks}
-                                onChange={(e) => {
-                                    setRemarks(e.target.value);
-                                    if (remarksError) setRemarksError(null);
-                                }}
-                                error={Boolean(remarksError)}
-                                helperText={remarksError ?? " "}
-                            />
-                        </>
+                    {modalAction === "forward" && (
+                        <TextField
+                            label="Remarks (optional)"
+                            fullWidth
+                            multiline
+                            minRows={3}
+                            value={remarks}
+                            onChange={(e) => setRemarks(e.target.value)}
+                        />
                     )}
                 </DialogContent>
 
-                <DialogActions sx={{ px: 3, py: 2 }}>
-                    <Button onClick={closeActionModal}>Cancel</Button>
-                    <Button
-                        variant="contained"
-                        onClick={handleConfirmAction}
-                        sx={{
-                            bgcolor: currentAction === "reject" ? "error.main" : "#0b6b66",
-                            "&:hover": { bgcolor: currentAction === "reject" ? "error.dark" : "#095a54" },
-                        }}
-                    >
-                        {currentAction === "request_correction" ? "Confirm" : currentAction === "forward" ? "Forward" : "Reject"}
+                <DialogActions>
+                    <Button onClick={() => setModalAction(null)}>Cancel</Button>
+                    <Button variant="contained" onClick={handleActionSubmit}>
+                        Confirm
                     </Button>
                 </DialogActions>
             </Dialog>
 
-            {/* Snack */}
-            <Snackbar open={snack.open} autoHideDuration={3000} onClose={() => setSnack((s) => ({ ...s, open: false }))}>
-                <Alert severity={snack.severity ?? "success"} sx={{ width: "100%" }}>
-                    {snack.message}
-                </Alert>
+            <Snackbar open={snack.open} autoHideDuration={2500}
+                onClose={() => setSnack({ ...snack, open: false })}
+            >
+                <Alert severity={snack.severity}>{snack.message}</Alert>
             </Snackbar>
         </Box>
     );

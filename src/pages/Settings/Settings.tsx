@@ -15,7 +15,6 @@ export default function Settings() {
     const { tab } = useParams();
 
     const currentTab = tab ?? "profile";
-
     const tabItems = [
         { key: "profile", label: "Profile", icon: <PersonOutlineIcon fontSize="small" /> },
         { key: "preferences", label: "Preferences", icon: <SettingsOutlinedIcon fontSize="small" /> },

@@ -1,4 +1,3 @@
-// src/components/instituteProfile/InfrastructureTab.tsx
 import React from "react";
 import {
   Box,
@@ -33,8 +32,6 @@ export const InfrastructureTab: React.FC = () => {
           <LabelValue label="Laboratories" value="25" />
         </Grid>
       </Grid>
-
-      {/* Library */}
       <SectionTitle>Library</SectionTitle>
       <Grid container spacing={2.5} mb={4}>
           <Grid size={{xs:12, md:3}}>
@@ -50,8 +47,6 @@ export const InfrastructureTab: React.FC = () => {
           <SoftBox label="Reading Capacity" value="500" />
         </Grid>
       </Grid>
-
-      {/* Hostel Facilities */}
       <SectionTitle>Hostel Facilities</SectionTitle>
       <Grid container spacing={2.5} mb={4}>
           <Grid size={{xs:12, md:6}}>
@@ -62,7 +57,6 @@ export const InfrastructureTab: React.FC = () => {
         </Grid>
       </Grid>
 
-      {/* Sports & Auditorium */}
       <Grid container spacing={4}>
           <Grid size={{xs:12, md:4}}>
           <SectionTitle>Sports Facilities</SectionTitle>

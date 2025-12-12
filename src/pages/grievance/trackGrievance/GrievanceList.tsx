@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
     Box,
     Paper,
@@ -25,8 +25,6 @@ type Grievance = {
     date: string;
     status: "Resolved" | "Under Investigation" | "Pending" | "Open";
 };
-
-// ---------------------- SAMPLE DATA (20 ITEMS) -----------------------
 const sampleData: Grievance[] = [
     { id: "GRV/2024/001", name: "Rajesh Kumar", emp: "EMP01000", category: "Major", nature: "Advance", subject: "Delay in salary payment for last three months", date: "1/15/2024", status: "Resolved" },
     { id: "GRV/2024/002", name: "Priya Sharma", emp: "EMP01001", category: "Medium", nature: "Benefits", subject: "Leave application rejected without proper justification", date: "1/20/2024", status: "Under Investigation" },
@@ -52,7 +50,6 @@ const sampleData: Grievance[] = [
     })),
 ];
 
-// -------- CHIP COLOR HELPERS ----------
 function categoryChip(cat: Grievance["category"]) {
     return {
         Major: { bg: "#eef5f4", color: "#0b5c60" },
@@ -69,8 +66,6 @@ function statusChip(status: Grievance["status"]) {
         Open: { bg: "#eef3f4", color: "#5f7a78" },
     }[status];
 }
-
-// ----------------------- MAIN COMPONENT -----------------------
 
 export default function GrievanceList() {
     const rowsPerPage = 10;
@@ -97,7 +92,6 @@ export default function GrievanceList() {
                 Found {sampleData.length} grievance(s)
             </Typography>
 
-            {/* TABLE WRAPPER */}
             <Box
                 sx={{
                     width: "100%",
@@ -111,7 +105,6 @@ export default function GrievanceList() {
                         minWidth: 1100,
                     }}
                 > 
-                    {/* ===== TABLE HEADER ===== */}
                     <TableHead>
                         <TableRow sx={{ bgcolor: "#f8fafc" }}>
                             <TableCell sx={{ fontWeight: 700, width: 140 }}>Grievance ID</TableCell>
@@ -125,7 +118,6 @@ export default function GrievanceList() {
                         </TableRow>
                     </TableHead>
 
-                    {/* ===== TABLE BODY ===== */}
                      <TableBody>
                         {paginated.map((row) => (
                             <TableRow key={row.id} hover>
@@ -156,7 +148,6 @@ export default function GrievanceList() {
 
                                 <TableCell>{row.nature}</TableCell>
 
-                                {/* SUBJECT WITH TOOLTIP */}
                                 <TableCell
                                     sx={{
                                         whiteSpace: "nowrap",
@@ -203,7 +194,6 @@ export default function GrievanceList() {
                 </Table>
             </Box>
 
-            {/* PAGINATION */}
             <Box
                 sx={{
                     mt: 3,

@@ -1,4 +1,3 @@
-// src/pages/AttendancePage.tsx
 import React, { useMemo, useState } from "react";
 import { Box, Card, Typography, Grid, Chip } from "@mui/material";
 import SubjectProgress from "./SubjectProgressTab";

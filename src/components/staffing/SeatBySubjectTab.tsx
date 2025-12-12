@@ -1,4 +1,3 @@
-// components/staffing/SeatsBySubjectTab.tsx
 import React, { useMemo } from "react";
 import { Grid, Typography, Box } from "@mui/material";
 import type { ApprovedSeatRow } from "../../types/staffingtypes";
@@ -9,7 +8,6 @@ type Props = {
 };
 
 export const SeatsBySubjectTab: React.FC<Props> = ({ rows }) => {
-  // group by subject
   const subjectStats = useMemo(() => {
     const map = new Map<
       string,

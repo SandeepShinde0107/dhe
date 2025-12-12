@@ -1,4 +1,3 @@
-// components/staffing/SeatsByCategoryTab.tsx
 import React, { useMemo } from "react";
 import { Grid, Box, Typography } from "@mui/material";
 import type { ApprovedSeatRow } from "../../types/staffingtypes";
@@ -24,7 +23,6 @@ export const SeatsByCategoryTab: React.FC<Props> = ({ rows }) => {
       map.set(key, current);
     });
 
-    // Keep a stable order if you want it like screenshot
     const order = ["GENERAL", "OBC", "SC", "ST", "EBC", "VJNT", "NT", "SBC"];
 
     return Array.from(map.entries())

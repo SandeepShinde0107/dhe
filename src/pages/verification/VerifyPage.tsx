@@ -225,8 +225,6 @@ const VerificationChip: React.FC<{ status: VerificationStatus }> = ({
   );
 };
 
-// ---------- main page ----------
-
 export const VerifyPage: React.FC = () => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1); // 1-based
@@ -254,11 +252,9 @@ const handleClearFilters = () => {
     fromDate: "",
     toDate: "",
   });
-  // also reset your table filters here if you want
 };
 
 const handleApplyFilters = () => {
-  // hook this into your table filtering logic
   console.log("Apply filters with:", filters);
   setFilterOpen(false);
 };
@@ -285,7 +281,6 @@ const handleApplyFilters = () => {
   const endIndex = Math.min(startIndex + rowsPerPage, total);
   const pageRows = filteredRows.slice(startIndex, endIndex);
 
-  // summary cards
   const totalApplications = rows.length;
   const totalPending = rows.filter((r) => r.verification === "Pending").length;
   const totalInProgress = rows.filter(
@@ -296,7 +291,6 @@ const handleApplyFilters = () => {
   ).length;
 
   const handleExport = () => {
-    // hook up to real export later
     console.log("Exporting data:", filteredRows);
     alert("Export triggered (mock) – see console for data.");
   };
@@ -327,7 +321,6 @@ const handleApplyFilters = () => {
             }}
           >
             <CardContent sx={{ p: 3.5 }}>
-              {/* Header row */}
               <Box
                 sx={{
                   display: "flex",
@@ -358,7 +351,6 @@ const handleApplyFilters = () => {
                 </Button>
               </Box>
 
-              {/* Search + Filters */}
               <Box
                 sx={{
                   display: "flex",
@@ -399,15 +391,10 @@ const handleApplyFilters = () => {
                     borderRadius: 2,
                     width: { xs: "100%", md: "auto" },
                   }}
-                //   onClick={() =>
-                //     alert("Filters UI not implemented yet – frontend only.")
-                //   }
                 >
                   Filters
                 </Button>
               </Box>
-
-              {/* Summary cards */}
               <Grid container spacing={2.5} mb={3}>
                   <Grid size={{xs:12, md:3}}>
                   <SummaryCard
@@ -426,7 +413,6 @@ const handleApplyFilters = () => {
                 </Grid>
               </Grid>
 
-              {/* Table */}
               <TableContainer
                 sx={{
                   borderRadius: 2,
@@ -490,8 +476,6 @@ const handleApplyFilters = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-
-              {/* Bottom bar: showing + pagination + rows per page */}
               <Box
                 sx={{
                   mt: 2.5,
@@ -515,7 +499,6 @@ const handleApplyFilters = () => {
                     gap: 2,
                   }}
                 >
-                  {/* custom pagination strip */}
                   <Box
                     sx={{
                       display: "flex",

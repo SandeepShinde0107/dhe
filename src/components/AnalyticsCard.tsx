@@ -1,4 +1,3 @@
-// components/AnalyticsCard.tsx
 import React from "react";
 import { Card, Box, Typography, Grid } from "@mui/material";
 import type { AnalyticsVariant } from "../config/DashboardConfig";
@@ -50,8 +49,6 @@ export default function AnalyticsCard(_props: AnalyticsCardProps) {
           </Box>
         </Card>
       </Grid>
-
-      {/* System Performance */}
       <Grid size={{xs:12, md:6}}>
         <Card sx={{ p: 2.5, borderRadius: 2 }}>
           <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 2 }}>

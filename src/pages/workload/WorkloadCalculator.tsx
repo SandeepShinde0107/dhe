@@ -11,9 +11,7 @@ import {
 } from "@mui/material";
 import CalculateOutlinedIcon from "@mui/icons-material/CalculateOutlined";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import React, { useState } from "react";
-import FunctionsOutlinedIcon from "@mui/icons-material/FunctionsOutlined";
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import  { useState } from "react";
 import SavedWorkloadsTable from "./SavedWorkloadsTable";
 
 export default function WorkloadCalculator() {
@@ -61,59 +59,58 @@ export default function WorkloadCalculator() {
     const reset = () => setResult(null);
 
     return (
-
         <>
-         <Typography variant="h6" fontWeight={700} mb={1}>
-      Workload Calculator
-    </Typography>
+            <Typography variant="h6" fontWeight={700} mb={1}>
+                Workload Calculator
+            </Typography>
 
-    <Typography variant="body2" color="text.secondary" mb={3}>
-      Calculate faculty workload based on student enrollment and course structure
-    </Typography>
+            <Typography variant="body2" color="text.secondary" mb={3}>
+                Calculate faculty workload based on student enrollment and course structure
+            </Typography>
 
-    <Card
-      sx={{
-        borderRadius: 900,
-        boxShadow: "none",
-        border: "1px solid #e5e7eb",
-        overflow: "hidden",
-        mb: 3,
-      }}
-    >
-      <Tabs
-        value={innerTab}
-        onChange={(_, v) => setInnerTab(v)}
-        variant="fullWidth"
-        TabIndicatorProps={{ style: { display: "none" } }}
-        sx={{
-          bgcolor: "#f3f4f6",
-          borderRadius: 900,
-          minHeight: "48px",
-          "& .MuiTab-root": {
-            textTransform: "none",
-            fontWeight: 600,
-            minHeight: "48px",
-            borderRadius: 900,
-            mx: 0.3,
-            color: "#4b5563",
-          },
-          "& .Mui-selected": {
-            bgcolor: "#ffffff",
-            boxShadow: "0px 2px 6px rgba(0,0,0,0.08)",
-            fontWeight: 700,
-            color: "#000000 !important",
-          },
-          "& .MuiTab-root:hover": {
-            bgcolor: "#eef1f2",
-          },
-        }}
-      >
-        <Tab label="Calculator" />
-        <Tab label="Saved Workloads" />
-      </Tabs>
-    </Card>
+            <Card
+                sx={{
+                    borderRadius: 900,
+                    boxShadow: "none",
+                    border: "1px solid #e5e7eb",
+                    overflow: "hidden",
+                    mb: 3,
+                }}
+            >
+                <Tabs
+                    value={innerTab}
+                    onChange={(_, v) => setInnerTab(v)}
+                    variant="fullWidth"
+                    TabIndicatorProps={{ style: { display: "none" } }}
+                    sx={{
+                        bgcolor: "#f3f4f6",
+                        borderRadius: 900,
+                        minHeight: "48px",
+                        "& .MuiTab-root": {
+                            textTransform: "none",
+                            fontWeight: 600,
+                            minHeight: "48px",
+                            borderRadius: 900,
+                            mx: 0.3,
+                            color: "#4b5563",
+                        },
+                        "& .Mui-selected": {
+                            bgcolor: "#ffffff",
+                            boxShadow: "0px 2px 6px rgba(0,0,0,0.08)",
+                            fontWeight: 700,
+                            color: "#000000 !important",
+                        },
+                        "& .MuiTab-root:hover": {
+                            bgcolor: "#eef1f2",
+                        },
+                    }}
+                >
+                    <Tab label="Calculator" />
+                    <Tab label="Saved Workloads" />
+                </Tabs>
+            </Card>
 
-            {innerTab ===0 && (<Card sx={{ borderRadius: 2, p: 2 }}>
+            {innerTab === 0 && (<Card sx={{ borderRadius: 2, p: 2 }}>
                 <CardContent>
                     <Grid container spacing={3}>
                         <Grid size={{ xs: 12, md: 6 }}>
@@ -235,8 +232,6 @@ export default function WorkloadCalculator() {
                             />
                         </Grid>
                     </Grid>
-
-                    {/* ================= BUTTONS ================= */}
                     <Box sx={{ display: "flex", gap: 2, mt: 3 }}>
                         <Button
                             variant="contained"
@@ -256,9 +251,6 @@ export default function WorkloadCalculator() {
                             Reset
                         </Button>
                     </Box>
-
-                    {/* ================= RESULTS ================= */}
-                    {/* ================= RESULTS ALWAYS VISIBLE ================= */}
 
                     <Typography variant="h6" mt={4} mb={2}>
                         Calculation Results
@@ -299,7 +291,6 @@ export default function WorkloadCalculator() {
                         </Grid>
                     </Grid>
 
-                    {/* SUMMARY */}
                     <Grid container spacing={3} mt={2}>
                         <Grid size={{ xs: 12, md: 6 }}>
                             <Card sx={{ borderRadius: 2 }}>
@@ -346,7 +337,7 @@ export default function WorkloadCalculator() {
                 </CardContent>
             </Card>)}
 
-             {innerTab === 1 && <SavedWorkloadsTable />} 
+            {innerTab === 1 && <SavedWorkloadsTable />}
         </>
     );
 }

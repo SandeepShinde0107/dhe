@@ -155,7 +155,6 @@ export default function StaffList({ onEdit }: Props) {
                 Manage staff members and their details
             </Typography>
 
-            {/* FILTER CARD */}
             <Card sx={{ borderRadius: 3, mb: 3 }}>
                 <CardContent>
                     <Typography variant="h6" fontWeight={700} mb={0.5}>
@@ -165,7 +164,6 @@ export default function StaffList({ onEdit }: Props) {
                         Filter staff by various criteria
                     </Typography>
 
-                    {/* FILTER ROW */}
                     <Grid container spacing={2} mb={2}>
                         <Grid size={{ xs: 6, md: 2 }}>
                             <TextField
@@ -273,8 +271,6 @@ export default function StaffList({ onEdit }: Props) {
                             </TextField>
                         </Grid>
                     </Grid>
-
-                    {/* SEARCH BOX */}
                     <TextField
                         fullWidth
                         size="small"
@@ -300,7 +296,6 @@ export default function StaffList({ onEdit }: Props) {
                 </CardContent>
             </Card>
 
-            {/* TABLE CARD */}
             <Card sx={{ borderRadius: 3, mb: 3 }}>
                 <CardContent>
                     <Typography variant="h6" fontWeight={700} mb={1}>
@@ -359,7 +354,6 @@ export default function StaffList({ onEdit }: Props) {
                             ))}
                         </TableBody>
                     </Table>
-                    {/* bottom pagination */}
                     <Box
                         sx={{
                             mt: 2.5,
@@ -476,7 +470,6 @@ export default function StaffList({ onEdit }: Props) {
                                 </Grid>
                             </Grid>
 
-                            {/* QUALIFICATIONS */}
                             <Box mt={3}>
                                 <Typography variant="subtitle1" fontWeight={600}>
                                     Qualifications
@@ -496,7 +489,6 @@ export default function StaffList({ onEdit }: Props) {
                                 </Box>
                             </Box>
 
-                            {/* EXPERIENCE */}
                             <Box mt={3}>
                                 <Typography variant="subtitle1" fontWeight={600}>
                                     Experience
@@ -519,7 +511,6 @@ export default function StaffList({ onEdit }: Props) {
                         </>
                     )}
                 </DialogContent>
-
                 <DialogActions>
                     <Button onClick={() => setDetailsOpen(false)}>Close</Button>
                 </DialogActions>

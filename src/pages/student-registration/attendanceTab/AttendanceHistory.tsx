@@ -1,4 +1,3 @@
-// src/components/AttendanceHistory.tsx
 import React from "react";
 import { Card, Box, Typography, Grid, Chip } from "@mui/material";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";

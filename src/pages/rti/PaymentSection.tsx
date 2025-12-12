@@ -15,7 +15,6 @@ import useToast from "../../hooks/useToast";
 export default function PaymentSection({ onBack }: any) {
   const { toast, showToast, closeToast } = useToast();
   const [openPopup, setOpenPopup] = useState(false);
-  // Show the popup
   const handlePayment = () => {
     setOpenPopup(true);
   };

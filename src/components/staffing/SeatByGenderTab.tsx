@@ -1,4 +1,3 @@
-// components/staffing/SeatsByGenderTab.tsx
 import React, { useMemo } from "react";
 import { Grid, Box, Typography } from "@mui/material";
 import type{ ApprovedSeatRow } from "../../types/staffingtypes";
